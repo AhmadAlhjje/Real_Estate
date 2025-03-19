@@ -1,0 +1,52 @@
+/* components/PropertyList.css */
+.property-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.property-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.property-card:hover {
+  transform: scale(1.02);
+}
+
+.property-card h5 {
+  margin: 0;
+  color: #333;
+}
+
+.property-card p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.property-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-btn, .delete-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-btn {
+  background: #28a745;
+  color: white;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+}

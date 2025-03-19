@@ -5,6 +5,8 @@ import Footer from './components/Footer/Footer';
 import RealEstate from './pages/RealEstate/RealEstate';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
+// import OwnerDashboard from './pages/OwnerDashboard/OwnerDashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
@@ -18,6 +20,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/realEstate" element={<RealEstate />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </>
