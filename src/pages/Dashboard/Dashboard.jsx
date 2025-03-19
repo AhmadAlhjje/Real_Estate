@@ -1,36 +1,52 @@
-// components/Dashboard.js
 import React, { useState } from "react";
 import PropertyList from "../../components/PropertyList/PropertyList";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("properties");
+  const [menuOpen, setMenuOpen] = useState(false); // للتحكم في إظهار القائمة في الشاشات الصغيرة
 
   return (
     <div className="dashboard">
+      {/* زر فتح القائمة في الشاشات الصغيرة */}
+      <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </button>
+
+      {/* محتوى لوحة التحكم */}
       <div className="dashboard-content">
         {activeTab === "properties" && <PropertyList />}
         {activeTab === "requests" && <p className="no-content">لا توجد طلبات مراسلة بعد.</p>}
         {activeTab === "add" && <p className="no-content">صفحة إضافة العقار قيد التطوير.</p>}
       </div>
 
-      <div className="dashboard-menu">
+      {/* لوحة التحكم */}
+      <div className={`dashboard-menu ${menuOpen ? "open" : ""}`}>
         <h2 className="dashboard-title">لوحة تحكم صاحب العقار</h2>
         <button
           className={`tab-btn ${activeTab === "properties" ? "active" : ""}`}
-          onClick={() => setActiveTab("properties")}
+          onClick={() => {
+            setActiveTab("properties");
+            setMenuOpen(false); // إغلاق القائمة بعد اختيار عنصر
+          }}
         >
           عرض العقارات
         </button>
         <button
           className={`tab-btn ${activeTab === "requests" ? "active" : ""}`}
-          onClick={() => setActiveTab("requests")}
+          onClick={() => {
+            setActiveTab("requests");
+            setMenuOpen(false);
+          }}
         >
           عرض طلبات المراسلة
         </button>
         <button
           className={`tab-btn ${activeTab === "add" ? "active" : ""}`}
-          onClick={() => setActiveTab("add")}
+          onClick={() => {
+            setActiveTab("add");
+            setMenuOpen(false);
+          }}
         >
           إضافة عقار
         </button>

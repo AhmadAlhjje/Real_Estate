@@ -1,10 +1,9 @@
-/* components/Dashboard.css */
-
+/* خلفية لوحة التحكم الرئيسية */
 .dashboard {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
-  background: linear-gradient(145deg, #ececec, #d2d2d2);
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 100%;
@@ -12,98 +11,137 @@
   position: relative;
 }
 
+/* محتوى لوحة التحكم */
 .dashboard-content {
-  width: 75%; /* تصغير عرض المحتوى */
-  padding: 10px;
-  background: #f8f9fa;
-  border-radius: 5px;
+  flex-grow: 1;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  /*margin-right: 5%;  ترك مسافة صغيرة بينه وبين لوحة التحكم */
+  width: 80%;
 }
 
+/* القائمة الجانبية للوحة التحكم */
 .dashboard-menu {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  width: 25%; /* جعل لوحة التحكم تأخذ أغلب الصفحة */
+  align-items: center;
+  gap: 15px;
+  width: 20%;
   max-height: 100vh;
-  overflow-y: auto;
-  background: #ffffff;
-  padding: 20px;
+  background: linear-gradient(135deg, #1f3b57, #2c4a6e);
+  padding: 25px;
   position: sticky;
   top: 0;
   right: 0;
-  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: -4px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
 }
 
-
+/* عنوان لوحة التحكم */
 .dashboard-title {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 20px;
   font-weight: bold;
-  font-size: 24px;
-  text-transform: uppercase;
-  /* margin-top: 60px; */
+  color: #ffffff;
+  margin-bottom: 15px;
 }
 
+/* تصميم الأزرار */
 .tab-btn {
-  background: #007bff; /* لون خلفية الزر */
-  color: white;
+  background: transparent;
+  color: #ffffff;
   border: none;
   padding: 12px 20px;
-  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
   cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
   font-weight: bold;
-  transition: 0.3s ease;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.tab-btn:hover {
-  background: #0056b3;
-  transform: scale(1.05);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-}
-
+/* تأثير المقصوص (Cut-out Effect) للزر المختار */
 .tab-btn.active {
-  background: #28a745;
+  background: #ffffff;
+  color: #1f3b57;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.tab-btn:focus {
-  outline: none;
+/* تأثير تحريك جميل عند تمرير الماوس */
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
 }
 
-/* .dashboard-content {
-  margin-right: 25%; 
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-} */
-
-.no-content {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-  padding: 20px;
+/* زر التبديل في الشاشات الصغيرة */
+.menu-toggle {
+  display: none;
+  background: #1f3b57;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 22px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-@keyframes fadeIn {
-  0% {
+/* تأثير جميل عند الضغط على زر القائمة */
+.menu-toggle:hover {
+  background: #2c4a6e;
+  transform: scale(1.1);
+}
+
+/* إخفاء لوحة التحكم في الشاشات الصغيرة افتراضيًا */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-menu {
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: linear-gradient(135deg, #1f3b57, #2c4a6e);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 99;
+  }
+
+  /* إظهار القائمة عند فتحها */
+  .dashboard-menu.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  /* زر التبديل يصبح ظاهرًا في الشاشات الصغيرة */
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* أنيميشن فتح القائمة */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
     opacity: 0;
   }
-  100% {
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
-}
-
-.dashboard-menu {
-  animation: fadeIn 1s ease-out;
 }
