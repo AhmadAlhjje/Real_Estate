@@ -1,0 +1,37 @@
+import React, { useState } from "react";
+
+const Filter = ({ onFilter }) => {
+  const [selected, setSelected] = useState("آجار");
+
+  const handleFilter = (filterType) => {
+    setSelected(filterType);
+    onFilter(filterType);
+  };
+
+  return (
+    <div className="d-flex justify-content-center mt-3">
+      <div className="d-flex bg-light p-2 rounded-3 shadow-sm" style={{ width: "60%", maxWidth: "600px" }}>
+        <button 
+          className={`btn ${selected === "مشاريع" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
+          onClick={() => handleFilter("مشاريع")}
+        >
+          مشاريع
+        </button>
+        <button 
+          className={`btn ${selected === "شراء" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
+          onClick={() => handleFilter("شراء")}
+        >
+          شراء
+        </button>
+        <button 
+          className={`btn ${selected === "آجار" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
+          onClick={() => handleFilter("آجار")}
+        >
+          آجار
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Filter;

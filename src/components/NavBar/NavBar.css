@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap');
+
+/* إعدادات الأساسيات */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* تنسيق الشريط العلوي */
+.navbar {
+    background-color: #34495e;
+    padding: 18px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+    background-color: #2c3e50;
+}
+
+/* تنسيق الحاوية داخل الشريط العلوي */
+.navbar-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    position: relative;
+}
+
+/* تنسيق الشعار */
+.navbar-logo {
+    position: absolute;
+    right: 10%;
+}
+
+.navbar-logo h1 {
+    color: #ecf0f1;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-logo h1:hover {
+    color: #3498db;
+}
+
+/* تنسيق قائمة الروابط */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* تنسيق الروابط */
+.navbar-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+}
+
+.navbar-link:hover {
+    color: #3498db;
+    transform: translateY(-3px);
+    border-bottom: 3px solid #3498db;
+}
+
+/* تأثير عند الضغط */
+.navbar-link:active {
+    transform: translateY(1px);
+}
+
+/* تصميم قائمة التنقل في الهواتف */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-menu {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .navbar-link {
+        font-size: 18px;
+    }
+
+    .navbar-logo {
+        position: static;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
