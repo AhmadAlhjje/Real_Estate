@@ -3,18 +3,19 @@ import "./PropertyFilter.css";
 import Filter from "../Filter/Filter";
 
 const PropertyFilter = ({ onFilterChange }) => {
-  const [propertyType, setPropertyType] = useState("rent");
+  const [propertyType, setPropertyType] = useState("آجار");
   const [category, setCategory] = useState("");
-  const [rooms, setRooms] = useState("");
+  const [livingRooms, setlivingRooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [completionDate, setCompletionDate] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
 
   const handleFilterChange = () => {
+    // عند الضغط على فلترة، سيتم إرسال الفلاتر إلى المكون الأب
     onFilterChange({
       propertyType,
       category,
-      rooms,
+      livingRooms,
       bathrooms,
       completionDate,
       priceRange,
@@ -22,14 +23,13 @@ const PropertyFilter = ({ onFilterChange }) => {
   };
 
   const handlePropertyTypeChange = (type) => {
-    setPropertyType(type === "مشاريع" ? "project" : type === "شراء" ? "buy" : "rent");
+    setPropertyType(type);
   };
 
   return (
     <div className="property-filter">
-      <h2> فلترة العقارات</h2>
+      <h2>فلترة العقارات</h2>
       <Filter onFilter={handlePropertyTypeChange} />
-
       {/* ✅ الفلاتر بناءً على نوع العقار */}
       <div className="filters-row">
         {propertyType !== "project" ? (
@@ -44,7 +44,7 @@ const PropertyFilter = ({ onFilterChange }) => {
               <option value="clinic">عيادة</option>
               <option value="palace">قصر</option>
             </select>
-            <select className="filter-select" value={rooms} onChange={(e) => setRooms(e.target.value)}>
+            <select className="filter-select" value={livingRooms} onChange={(e) => setlivingRooms(e.target.value)}>
               <option value="">الغرف</option>
               {[1, 2, 3, 4, 5, 6].map((num) => (
                 <option key={num} value={num}>{num}</option>
@@ -87,7 +87,7 @@ const PropertyFilter = ({ onFilterChange }) => {
           <input
             type="number"
             className="filter-input"
-            placeholder=" أعلى سعر"
+            placeholder="أعلى سعر"
             value={priceRange.max}
             onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
           />
