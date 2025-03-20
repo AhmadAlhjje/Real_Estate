@@ -21,12 +21,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
+    width: 100%;
     z-index: 1000;
-    transition: background-color 0.3s ease;
-}
-
-.navbar:hover {
-    background-color: #2c3e50;
+    transition: all 0.3s ease;
 }
 
 /* تنسيق الحاوية داخل الشريط العلوي */
@@ -40,13 +37,15 @@ body {
     position: relative;
 }
 
-/* تنسيق الشعار */
-.navbar-logo {
-    position: absolute;
-    right: 10%;
+/* تنسيق الشعار وزر القائمة معًا */
+.navbar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* مسافة بين الزر والشعار */
 }
 
-.navbar-logo h1 {
+/* تنسيق الشعار */
+.navbar-logo {
     color: #ecf0f1;
     font-size: 32px;
     font-weight: 700;
@@ -54,9 +53,10 @@ body {
     letter-spacing: 3px;
     cursor: pointer;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
-.navbar-logo h1:hover {
+.navbar-logo:hover {
     color: #3498db;
 }
 
@@ -86,13 +86,39 @@ body {
     border-bottom: 3px solid #3498db;
 }
 
-/* تأثير عند الضغط */
-.navbar-link:active {
-    transform: translateY(1px);
+/* زر القائمة في الشاشات الصغيرة */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+}
+
+/* محتوى إضافي لتعديل المسافة بين الشريط والمحتوى عند الفتح */
+.content-offset {
+    transition: height 0.3s ease;
+    height: 0;
+}
+
+.content-offset.expanded {
+    height: 200px; /* يزداد الارتفاع ليبعد المحتوى عن الشريط */
 }
 
 /* تصميم قائمة التنقل في الهواتف */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
     .navbar-container {
         flex-direction: column;
         align-items: center;
@@ -100,17 +126,18 @@ body {
 
     .navbar-menu {
         flex-direction: column;
-        gap: 15px;
-        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+        display: none;
+        transition: all 0.3s ease;
     }
 
-    .navbar-link {
-        font-size: 18px;
+    .navbar-menu.show {
+        display: flex;
     }
 
     .navbar-logo {
-        position: static;
-        text-align: center;
         margin-bottom: 10px;
+        margin-top: 25px;
     }
 }
