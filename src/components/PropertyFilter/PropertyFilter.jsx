@@ -36,7 +36,7 @@ const PropertyFilter = ({ onFilterChange }) => {
       <h2>فلترة العقارات</h2>
       <Filter onFilter={handlePropertyTypeChange} />
       
-      {/* ✅ الفلاتر بناءً على نوع العقار */}
+      {/*  الفلاتر بناءً على نوع العقار */}
       <div className="filters-row">
         {propertyType === "مشاريع" ? (
           <>
@@ -89,7 +89,7 @@ const PropertyFilter = ({ onFilterChange }) => {
           </>
         )}
 
-        {/* ✅ نطاق السعر للجميع */}
+        {/*  نطاق السعر للجميع */}
         <div className="price-range">
           <input
             type="number"
@@ -108,7 +108,7 @@ const PropertyFilter = ({ onFilterChange }) => {
         </div>
       </div>
 
-      {/* ✅ زر البحث */}
+      {/*  زر البحث */}
       <button className="search-button" onClick={handleFilterChange}>🔍 بحث</button>
     </div>
   );
