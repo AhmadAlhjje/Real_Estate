@@ -1,5 +1,6 @@
 // components/PropertyList.js
 import React, { useState } from "react";
+import { FaEdit,FaRegTrashAlt } from "react-icons/fa";
 import "./PropertyList.css";
 
 const initialProperties = [
@@ -154,8 +155,12 @@ const PropertyList = () => {
               <p>📅 {property.addedDate.toLocaleDateString()}</p>
             </div>
             <div className="property-actions">
-              <button className="edit-btn">تعديل</button>
-              <button className="delete-btn" onClick={() => handleDelete(property.id)}>حذف</button>
+              <button className="edit-btn">
+              <FaEdit /> {/* إضافة أيقونة القلم */}
+              </button>
+              <button className="delete-btn" onClick={() => handleDelete(property.id)}>
+              <FaRegTrashAlt/> {/* إضافة أيقونة سلة المهملات */}
+              </button>
             </div>
           </div>
         ))
