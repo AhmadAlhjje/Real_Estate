@@ -43,6 +43,7 @@ body {
 .navbar-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 15px; /* مسافة بين الزر والشعار */
 }
 
@@ -95,6 +96,9 @@ body {
     border: none;
     color: #ecf0f1;
     cursor: pointer;
+    position: relative;
+    top: 60px !important;
+    /* left: 20px !important; */
 }
 
 /* أيقونة المستخدم */
@@ -120,7 +124,7 @@ body {
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 180px;
+    width: 160px;
     text-align: right;
     padding: 10px 0;
     display: flex;
@@ -166,4 +170,26 @@ body {
     .navbar-menu.show {
         display: flex;
     }
+
+    .navbar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px; 
+    }
+
+/* القائمة المنسدلة */
+.user-dropdown {
+    position: absolute;
+    left: 0; /* تغيير المحاذاة لتكون من اليسار */
+    top: 40px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 160px;
+    text-align: right;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
 }
