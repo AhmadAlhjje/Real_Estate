@@ -108,6 +108,8 @@ body {
 }
 
 .user-icon {
+    position: relative;
+    right: 60px;
     color: #ecf0f1;
     transition: color 0.3s ease;
 }
@@ -178,18 +180,23 @@ body {
         gap: 15px; 
     }
 
-/* القائمة المنسدلة */
-.user-dropdown {
-    position: absolute;
-    left: 0; /* تغيير المحاذاة لتكون من اليسار */
-    top: 40px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 160px;
-    text-align: right;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-}
+    .user-menu {
+        position: relative;
+        left: 20%;
+    }
+
+    /* القائمة المنسدلة */
+    .user-dropdown {
+        position: absolute;
+        left: 0; /* تغيير المحاذاة لتكون من اليسار */
+        top: 40px;
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 160px;
+        text-align: right;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+    }
 }
