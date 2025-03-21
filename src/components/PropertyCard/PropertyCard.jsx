@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome } from "react-icons/fa";
+import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome, FaHeart } from "react-icons/fa";
 
 const PropertyCard = ({ property }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    // يمكنك هنا تخزين العقار في localStorage أو تحديث المفضلة في قاعدة البيانات
+  };
+
   return (
     <div className="col-md-4" style={{ margin: "20px 0px" }}>
       <div className="card shadow-sm border-0 rounded-4 overflow-hidden">
@@ -16,12 +23,19 @@ const PropertyCard = ({ property }) => {
           <span 
             className="position-absolute top-0 start-0 m-2 badge bg-warning text-dark px-3 py-2 rounded-pill"
             style={{ width: "100px"}}
-            >
+          >
             {property.type}
           </span>
         </div>
         <div className="card-body">
-          <h5 className="fw-bold">{property.title}</h5>
+          <div className="d-flex justify-content-between align-items-center">
+            <h5 className="fw-bold m-0">{property.title}</h5>
+            <FaHeart 
+              onClick={toggleFavorite}
+              size={22}
+              style={{ cursor: "pointer", color: isFavorite ? "red" : "gray" }}
+            />
+          </div>
           <h5 className="text-primary fw-bold">USD {property.price.toLocaleString()}</h5>
           <p className="text-muted small"><FaMapMarkerAlt /> {property.city}</p>
           <p className="text-muted small"><FaHome /> {property.subCategory}</p>
