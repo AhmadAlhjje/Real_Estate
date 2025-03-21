@@ -143,10 +143,10 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4" dir="rtl">
       <h2 className="text-center mb-4">العقارات المتاحة</h2>
       <Filter onFilter={handleFilter}/>
-      <h2 className="text-end" style={{ marginTop: "60px" }}>أكثر العقارات مشاهدة</h2>
+      <h2 className="text-start" style={{ marginTop: "60px" }}>أكثر العقارات مشاهدة</h2>
       <div className="row mt-4">
         {/* تصفية العقارات حسب الفلتر المختار (آجار أو شراء) */}
         {property
@@ -157,7 +157,7 @@ const HomePage = () => {
             <PropertyCard key={property.id} property={property} />
         ))}
       </div>
-      <h2 className="text-end" style={{ marginTop: "60px" }}>أحدث العقارات</h2>
+      <h2 className="text-start" style={{ marginTop: "60px" }}>أحدث العقارات</h2>
       <div className="row mt-4 mb-4">
         {/* تصفية العقارات حسب الفلتر المختار (آجار أو شراء) */}
         {property

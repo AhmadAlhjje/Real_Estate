@@ -22,16 +22,16 @@ const NavBar = () => {
           {/* قائمة التنقل */}
           <ul className={`navbar-menu ${isOpen ? "show" : ""}`}>
             <li>
-              <Link to="/contact" className="navbar-link" onClick={() => setIsOpen(false)}>اتصل بنا</Link>
-            </li>
-            <li>
-              <Link to="/AddProperty" className="navbar-link" onClick={() => setIsOpen(false)}> إضافة عقار</Link>
+              <Link to="/" className="navbar-link" onClick={() => setIsOpen(false)}>الرئيسية</Link>
             </li>
             <li>
               <Link to="/realEstate" className="navbar-link" onClick={() => setIsOpen(false)}>العقارات</Link>
             </li>
             <li>
-              <Link to="/" className="navbar-link" onClick={() => setIsOpen(false)}>الرئيسية</Link>
+              <Link to="/AddProperty" className="navbar-link" onClick={() => setIsOpen(false)}> إضافة عقار</Link>
+            </li>
+            <li>
+              <Link to="/contact" className="navbar-link" onClick={() => setIsOpen(false)}>اتصل بنا</Link>
             </li>
           </ul>
         </div>

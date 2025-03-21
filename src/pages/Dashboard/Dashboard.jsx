@@ -13,13 +13,6 @@ const Dashboard = () => {
         ☰
       </button>
 
-      {/* محتوى لوحة التحكم */}
-      <div className="dashboard-content">
-        {activeTab === "properties" && <PropertyList />}
-        {activeTab === "requests" && <p className="no-content">لا توجد طلبات مراسلة بعد.</p>}
-        {activeTab === "add" && <p className="no-content">صفحة إضافة العقار قيد التطوير.</p>}
-      </div>
-
       {/* لوحة التحكم */}
       <div className={`dashboard-menu ${menuOpen ? "open" : ""}`}>
         <h2 className="dashboard-title">لوحة تحكم صاحب العقار</h2>
@@ -52,7 +45,12 @@ const Dashboard = () => {
         </button>
       </div>
 
-      
+            {/* محتوى لوحة التحكم */}
+      <div className="dashboard-content">
+        {activeTab === "properties" && <PropertyList />}
+        {activeTab === "requests" && <p className="no-content">لا توجد طلبات مراسلة بعد.</p>}
+        {activeTab === "add" && <p className="no-content">صفحة إضافة العقار قيد التطوير.</p>}
+      </div>
     </div>
   );
 };
