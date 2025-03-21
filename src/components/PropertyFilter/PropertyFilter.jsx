@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./PropertyFilter.css";
 import Filter from "../Filter/Filter";
 
-const PropertyFilter = ({ onFilterChange }) => {
-  const [propertyType, setPropertyType] = useState("آجار"); // نوع العقار الافتراضي
+const PropertyFilter = ({ onFilterChange}) => {
+  const [propertyType, setPropertyType] = useState("آجار");
   const [category, setCategory] = useState("");
   const [livingRooms, setLivingRooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [completionDate, setCompletionDate] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [city, setCity] = useState("");
 
   const handleFilterChange = () => {
     onFilterChange({
@@ -18,16 +19,17 @@ const PropertyFilter = ({ onFilterChange }) => {
       bathrooms,
       completionDate,
       priceRange,
+      city,
     });
   };
 
   const handlePropertyTypeChange = (type) => {
     setPropertyType(type);
-    // إعادة تعيين القيم عند تغيير نوع العقار
     setCategory("");
     setLivingRooms("");
     setBathrooms("");
     setCompletionDate("");
+    setCity("")
     setPriceRange({ min: "", max: "" });
   };
 
@@ -36,8 +38,16 @@ const PropertyFilter = ({ onFilterChange }) => {
       <h2>فلترة العقارات</h2>
       <Filter onFilter={handlePropertyTypeChange} />
       
-      {/*  الفلاتر بناءً على نوع العقار */}
       <div className="filters-row">
+        {/* فلتر المدينة */}
+        <select className="filter-select" value={city} onChange={(e) => setCity(e.target.value)}>
+              <option value="">المدينة</option>
+              <option value="Aleppo"> حلب </option>
+              <option value="Damascus">دمشق </option>
+              <option value="Latakia">اللاذقية </option>
+              <option value="Homs">حمص </option>
+            </select>
+
         {propertyType === "مشاريع" ? (
           <>
             {/* الفئات الخاصة بالمشاريع */}
@@ -89,7 +99,7 @@ const PropertyFilter = ({ onFilterChange }) => {
           </>
         )}
 
-        {/*  نطاق السعر للجميع */}
+        {/* نطاق السعر */}
         <div className="price-range">
           <input
             type="number"
@@ -108,7 +118,7 @@ const PropertyFilter = ({ onFilterChange }) => {
         </div>
       </div>
 
-      {/*  زر البحث */}
+      {/* زر البحث */}
       <button className="search-button" onClick={handleFilterChange}>🔍 بحث</button>
     </div>
   );

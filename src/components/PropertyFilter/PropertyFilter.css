@@ -132,3 +132,19 @@
         grid-template-columns: 1fr; /* عرض عقار واحد في السطر */
     }
 }
+
+/* تنسيق فلتر المدينة */
+.filter-select {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 18px;
+    min-width: 180px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+.filter-select:hover {
+    border-color: #27ae60;
+}

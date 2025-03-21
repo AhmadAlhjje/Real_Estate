@@ -128,9 +128,10 @@ const property = [
     views: 400,
     latitude: 34.7306,
     longitude: 36.7098,
-    addedDate: new Date("2025-03-06T12:00:00"),
+    addedDate: new Date("2025-03-06T12:00:00")
   }
 ];
+
 
 const RealEstate = () => {
   const [filteredProperties, setFilteredProperties] = useState(property);
@@ -138,34 +139,24 @@ const RealEstate = () => {
   const filterProperties = (filters) => {
     const filtered = property.filter((prop) => {
       return (
-        // التحقق من نوع العقار (آجار أو شراء أو مشاريع)
-        (filters.propertyType === "آجار" ? prop.type === "آجار" : filters.propertyType === "شراء" ? prop.type === "شراء" : filters.propertyType === "مشاريع" ? prop.type === "مشاريع" : true) &&
-
-        // التحقق من الفئة (إن كانت موجودة)
+        (filters.propertyType ? prop.type === filters.propertyType : true) &&
         (filters.category ? prop.category === filters.category : true) &&
-        
-        // التحقق من عدد الغرف (إن كان محددًا)
+        (filters.city ? prop.city === filters.city : true) &&
         (filters.livingRooms ? prop.livingRooms === parseInt(filters.livingRooms) : true) &&
-        
-        // التحقق من عدد الحمامات (إن كان محددًا)
         (filters.bathrooms ? prop.bathrooms === parseInt(filters.bathrooms) : true) &&
-        
-        // التحقق من نطاق السعر (إن كان محددًا)
-        (filters.priceRange.min && prop.price >= parseInt(filters.priceRange.min) || !filters.priceRange.min ? true : false) &&
-        (filters.priceRange.max && prop.price <= parseInt(filters.priceRange.max) || !filters.priceRange.max ? true : false)
+        (filters.priceRange.min ? prop.price >= parseInt(filters.priceRange.min) : true) &&
+        (filters.priceRange.max ? prop.price <= parseInt(filters.priceRange.max) : true)
       );
     });
-  
     setFilteredProperties(filtered);
   };
-  
 
   return (
     <div className="container">
       <PropertyFilter onFilterChange={filterProperties} />
       <div className="row">
         {filteredProperties.map((prop) => (
-        <PropertyCard key={prop.id} property={prop} />
+          <PropertyCard key={prop.id} property={prop} />
         ))}
       </div>
     </div>
