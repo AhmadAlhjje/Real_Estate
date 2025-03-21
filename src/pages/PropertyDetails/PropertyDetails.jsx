@@ -1,21 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import MapComponent from "../../components/MapComponent/MapComponent";
+import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-
-
-    const settings = {
-      dots: true, // عرض النقاط أسفل الصور
-      infinite: true, // التمرير اللانهائي
-      speed: 500, // سرعة الانتقال بين الصور
-      slidesToShow: 1, // عرض صورة واحدة في الوقت
-      slidesToScroll: 1, // التمرير صورة واحدة في كل مرة
-      arrows: true, // عرض الأسهم للتنقل بين الصور
-      fade: true, // التأثير التدريجي بين الصور
-    };
+import { FaExpand } from "react-icons/fa"; // أيقونة التوسيع
 
 const properties = [
   {
@@ -48,18 +36,22 @@ const PropertyDetails = () => {
 
   if (!property) return <h2 className="text-center">العقار غير موجود</h2>;
 
+  // تحويل الصور إلى الصيغة المطلوبة من مكتبة react-image-gallery
+  const images = property.images.map((img) => ({
+    original: img,
+    thumbnail: img,
+  }));
+
   return (
     <div className="container mt-4">
       {/* عنوان العقار والسعر */}
-      <div style={{display:"flex", justifyContent:"space-between",marginBottom:"40px"}}>
-      <h2 className="fw-bold text-dark">{property.title}</h2>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "40px" }}>
+        <h2 className="fw-bold text-dark">{property.title}</h2>
         <h4 className="text-success">USD {property.price.toLocaleString()}</h4>
       </div>
 
       {/* تصميم الشبكة */}
       <div className="row mt-4 mb-4">
-        
-
         {/* القسم الأيمن - الفيديو والخريطة */}
         <div className="col-md-4 d-flex flex-column gap-3">
           <div
@@ -67,51 +59,53 @@ const PropertyDetails = () => {
             style={{ height: "190px", cursor: "pointer", borderRadius: "15px" }}
             onClick={() => window.open(property.video, "_blank")}
           >
-            <img
-              src={property.images[0]}
-              alt="Video Thumbnail"
-              className="w-100 h-100 object-fit-cover"
-            />
-            <div
-              className="position-absolute top-50 start-50 translate-middle bg-dark text-white p-2 rounded"
-              style={{ opacity: 0.8, borderRadius: "10px" }}
-            >
+            <img src={property.images[0]} alt="Video Thumbnail" className="w-100 h-100 object-fit-cover" />
+            <div className="position-absolute top-50 start-50 translate-middle bg-dark text-white p-2 rounded" style={{ opacity: 0.8, borderRadius: "10px",width:"150px" }}>
               ▶️ مشاهدة جولة بالفيديو
             </div>
           </div>
 
           {/* صندوق الخريطة */}
-          <div
-            className="rounded-4 shadow-sm overflow-hidden"
-            style={{ height: "190px", borderRadius: "15px" }}
-          >
+          <div className="rounded-4 shadow-sm overflow-hidden" style={{ height: "190px", borderRadius: "15px" }}>
             <MapComponent lat={property.latitude} lng={property.longitude} title={property.title} />
           </div>
         </div>
 
-        {/* القسم الأيسر - صورة العقار الكبيرة */}
+        {/* القسم الأيسر - عرض الصور باستخدام ImageGallery */}
         <div className="col-md-8 mt-4 mt-md-0">
-        <div
-            className="rounded-4 shadow-sm overflow-hidden"
-            style={{
-                borderRadius: "30px",
-                height: "400px", 
-            }}
-        >
-      <Slider {...settings}>
-        {property.images.map((img, index) => (
-          <div key={index}>
-            <img
-              src={img}
-              alt={`Image ${index}`}
-              style={{ width: "100%", height: "100%"}}
+          <div className="rounded-4 shadow-sm overflow-hidden position-relative" style={{ borderRadius: "30px", height: "400px" }}>
+            <ImageGallery
+              items={images}
+              showPlayButton={false}
+              showFullscreenButton={true}
+              useBrowserFullscreen={true}
+              showThumbnails={true} // إظهار الصور المصغرة
+              slideDuration={450} // سرعة الانتقال بين الصور
+              slideInterval={2000} // مدة عرض كل صورة
+              additionalClass="custom-gallery"
+              renderFullscreenButton={(onClick) => (
+                <button
+                  className="fullscreen-button"
+                  onClick={onClick}
+                  style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    background: "rgba(0, 0, 0, 0.6)",
+                    border: "none",
+                    color: "white",
+                    padding: "8px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    zIndex: 10,
+                  }}
+                >
+                  <FaExpand size={20} />
+                </button>
+              )}
             />
           </div>
-        ))}
-      </Slider>
-    </div>
         </div>
-
       </div>
     </div>
   );
