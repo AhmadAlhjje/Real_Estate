@@ -7,6 +7,7 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PropertyDetails from './pages/PropertyDetails/PropertyDetails';
+import AddProperty from './pages/AddProperty/AddProperty';
 // import MapComponent from './components/MapComponent/MapComponent';
 
 function AppContent() {
@@ -23,6 +24,7 @@ function AppContent() {
         <Route path="/realEstate" element={<RealEstate />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/property/2" element={<PropertyDetails />} />
+        <Route path="/AddProperty" element={<AddProperty />} />
         {/* <Route path="/MapComponent" element={<MapComponent />} /> */}
       </Routes>
       {!hideNavBar && <Footer />}

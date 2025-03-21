@@ -25,7 +25,7 @@ const NavBar = () => {
               <Link to="/contact" className="navbar-link" onClick={() => setIsOpen(false)}>اتصل بنا</Link>
             </li>
             <li>
-              <Link to="/about" className="navbar-link" onClick={() => setIsOpen(false)}>عن الموقع</Link>
+              <Link to="/AddProperty" className="navbar-link" onClick={() => setIsOpen(false)}> إضافة عقار</Link>
             </li>
             <li>
               <Link to="/realEstate" className="navbar-link" onClick={() => setIsOpen(false)}>العقارات</Link>
