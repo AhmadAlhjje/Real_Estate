@@ -52,15 +52,15 @@ const PropertyDetails = () => {
     <div className="container mt-4">
       {/* عنوان العقار والسعر */}
       <div style={{display:"flex", justifyContent:"space-between",marginBottom:"40px"}}>
+      <h2 className="fw-bold text-dark">{property.title}</h2>
         <h4 className="text-success">USD {property.price.toLocaleString()}</h4>
-        <h2 className="fw-bold text-dark">{property.title}</h2>
       </div>
 
       {/* تصميم الشبكة */}
       <div className="row mt-4 mb-4">
         
 
-        {/* القسم الأيسر - الفيديو والخريطة */}
+        {/* القسم الأيمن - الفيديو والخريطة */}
         <div className="col-md-4 d-flex flex-column gap-3">
           <div
             className="rounded-4 shadow-sm position-relative overflow-hidden"
@@ -89,7 +89,7 @@ const PropertyDetails = () => {
           </div>
         </div>
 
-        {/* القسم الأيمن - صورة العقار الكبيرة */}
+        {/* القسم الأيسر - صورة العقار الكبيرة */}
         <div className="col-md-8 mt-4 mt-md-0">
         <div
             className="rounded-4 shadow-sm overflow-hidden"
