@@ -47,7 +47,7 @@ const NavBar = () => {
             {userMenuOpen && (
               <div className="user-dropdown">
                 <Link to="/login" className="user-dropdown-item">تسجيل الدخول</Link>
-                <Link to="/signup" className="user-dropdown-item">إنشاء حساب</Link>
+                <Link to="/register" className="user-dropdown-item">إنشاء حساب</Link>
                 <Link to="/favorites" className="user-dropdown-item">المفضلات</Link>
               </div>
             )}
