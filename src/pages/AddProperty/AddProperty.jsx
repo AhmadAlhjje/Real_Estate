@@ -64,6 +64,17 @@ const AddProperty = () => {
               </Form.Select>
             </Form.Group>
           </Col>
+          {formData.type === "اجار" && (
+            <Col md={6}>
+              <Form.Group className="mb-3 text-start">
+                <Form.Label>نوع الإجار</Form.Label>
+                <Form.Select name="rentType" value={formData.rentType} onChange={handleChange}>
+                  <option value="شهري">شهري</option>
+                  <option value="سنوي">سنوي</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          )}
         </Row>
         <Row>
           <Col md={6}>
@@ -106,17 +117,6 @@ const AddProperty = () => {
               <Form.Control type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} required />
             </Form.Group>
           </Col>
-          {formData.type === "اجار" && (
-            <Col md={6}>
-              <Form.Group className="mb-3 text-start">
-                <Form.Label>نوع الإجار</Form.Label>
-                <Form.Select name="rentType" value={formData.rentType} onChange={handleChange}>
-                  <option value="شهري">شهري</option>
-                  <option value="سنوي">سنوي</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-          )}
         </Row>
         <Form.Group className="mb-3 text-start">
           <Form.Label>إضافة صور</Form.Label>
