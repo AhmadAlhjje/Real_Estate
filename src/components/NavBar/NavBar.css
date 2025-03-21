@@ -1,54 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap');
-
-/* إعدادات الأساسيات */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Tajawal', 'Cairo', sans-serif;
-}
-
-body {
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* تنسيق الشريط العلوي */
+/* تنسيق شريط التنقل */
 .navbar {
-    background-color: #34495e;
-    padding: 18px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    position: fixed;
     width: 100%;
+    top: 0;
+    left: 0;
     z-index: 1000;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-}
-
-/* تنسيق الحاوية داخل الشريط العلوي */
-.navbar-container {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    position: relative;
-}
-
-/* تنسيق الشعار وزر القائمة معًا */
-.navbar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px; /* مسافة بين الزر والشعار */
-}
-
-/* تنسيق الشعار */
-.navbar-logo {
+  }
+  
+  .navbar-logo {
     color: #ecf0f1;
     font-size: 32px;
     font-weight: 700;
@@ -63,140 +27,105 @@ body {
     color: #3498db;
 }
 
-/* تنسيق قائمة الروابط */
-.navbar-menu {
-    display: flex;
-    list-style: none;
-    gap: 40px;
-    justify-content: center;
-    flex-grow: 1;
-}
-
-/* تنسيق الروابط */
-.navbar-link {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    padding: 5px 10px;
-}
-
-.navbar-link:hover {
-    color: #3498db;
-    transform: translateY(-3px);
-    border-bottom: 3px solid #3498db;
-}
-
-/* زر القائمة في الشاشات الصغيرة */
-.menu-toggle {
-    display: none;
-    font-size: 28px;
+  .nav-btn {
     background: none;
     border: none;
-    color: #ecf0f1;
+    color: white;
+    font-size: 20px;
     cursor: pointer;
-    position: relative;
-    top: 60px !important;
-    /* left: 20px !important; */
-}
-
-/* أيقونة المستخدم */
-.user-menu {
-    position: relative;
+    margin: 0 10px;
+  }
+  
+  .nav-icon-link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* زر القائمة العائمة */
+  .fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff5722;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
     cursor: pointer;
-}
-
-.user-icon {
-    position: relative;
-    right: 60px;
-    color: #ecf0f1;
-    transition: color 0.3s ease;
-}
-
-.user-icon:hover {
-    color: #3498db;
-}
-
-/* القائمة المنسدلة */
-.user-dropdown {
-    position: absolute;
-    right: 0;
-    top: 40px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 160px;
-    text-align: right;
-    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+  
+  .fab.open {
+    background-color: #d84315;
+  }
+  
+  .menu {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
     display: flex;
     flex-direction: column;
-}
-
-.user-dropdown-item {
-    padding: 12px 15px;
-    color: #333;
+    gap: 10px;
+  }
+  
+  .menu-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .menu-btn:hover {
+    background: #666;
+  }
+  
+  /* قائمة المستخدم المنسدلة */
+  .user-dropdown {
+    position: absolute;
+    top: 60px;
+    left:40px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-dropdown-item {
+    padding: 10px;
+    color: black;
     text-decoration: none;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-.user-dropdown-item:hover {
-    background: #f1f1f1;
-}
-
-/* محتوى إضافي لتعديل المسافة بين الشريط والمحتوى عند الفتح */
-.content-offset {
-    transition: height 0.3s ease;
-    height: 0;
-}
-
-.content-offset.expanded {
-    height: 200px;
-}
-
-/* تصميم قائمة التنقل في الهواتف */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+    transition: background 0.3s;
+  }
+  
+  .user-dropdown-item:hover {
+    background: #f0f0f0;
+  }
+  
+  /* تحسينات للهواتف */
+  @media (max-width: 600px) {
+    .navbar {
+      padding: 10px;
+    }
+    .nav-btn {
+      font-size: 18px;
     }
 
-    .navbar-menu {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        display: none;
-        transition: all 0.3s ease;
+    .fab {
+      width: 40px;
+      height: 40px;
     }
-
-    .navbar-menu.show {
-        display: flex;
-    }
-
-    .navbar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px; 
-    }
-
-    .user-menu {
-        position: relative;
-        left: 20%;
-    }
-
-    /* القائمة المنسدلة */
     .user-dropdown {
         position: absolute;
-        left: 0; /* تغيير المحاذاة لتكون من اليسار */
-        top: 40px;
-        background: #fff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        width: 160px;
-        text-align: right;
-        padding: 10px 0;
-        display: flex;
-        flex-direction: column;
-    }
-}
+        top: 50px;
+        left: 5px;
+      }
+  }
