@@ -1,5 +1,5 @@
 import { BASE_URL} from './api'
- const API_URL = `${BASE_URL}/realStates`;
+const API_URL = `${BASE_URL}/realStates`;
 
 
 //  دالة استلام العقارات كاملة
