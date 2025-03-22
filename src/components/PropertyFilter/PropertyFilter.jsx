@@ -3,9 +3,9 @@ import "./PropertyFilter.css";
 import Filter from "../Filter/Filter";
 
 const PropertyFilter = ({ onFilterChange}) => {
-  const [propertyType, setPropertyType] = useState("آجار");
-  const [category, setCategory] = useState("");
-  const [livingRooms, setLivingRooms] = useState("");
+  const [propertyType, setPropertyType] = useState("إيجار");
+  const [subcategory, setsubcategory] = useState("");
+  const [rooms, setrooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [completionDate, setCompletionDate] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
@@ -14,8 +14,8 @@ const PropertyFilter = ({ onFilterChange}) => {
   const handleFilterChange = () => {
     onFilterChange({
       propertyType,
-      category,
-      livingRooms,
+      subcategory,
+      rooms,
       bathrooms,
       completionDate,
       priceRange,
@@ -25,8 +25,8 @@ const PropertyFilter = ({ onFilterChange}) => {
 
   const handlePropertyTypeChange = (type) => {
     setPropertyType(type);
-    setCategory("");
-    setLivingRooms("");
+    setsubcategory("");
+    setrooms("");
     setBathrooms("");
     setCompletionDate("");
     setCity("")
@@ -42,16 +42,16 @@ const PropertyFilter = ({ onFilterChange}) => {
         {/* فلتر المدينة */}
         <select className="filter-select" value={city} onChange={(e) => setCity(e.target.value)}>
               <option value="">المدينة</option>
-              <option value="Aleppo"> حلب </option>
-              <option value="Damascus">دمشق </option>
-              <option value="Latakia">اللاذقية </option>
-              <option value="Homs">حمص </option>
+              <option value="حلب"> حلب </option>
+              <option value="دمشق">دمشق </option>
+              <option value="اللاذقية">اللاذقية </option>
+              <option value="حمص">حمص </option>
             </select>
 
         {propertyType === "مشاريع" ? (
           <>
             {/* الفئات الخاصة بالمشاريع */}
-            <select className="filter-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <select className="filter-select" value={subcategory} onChange={(e) => setsubcategory(e.target.value)}>
               <option value="">الفئة</option>
               <option value="seaview">إطلالة على البحر</option>
               <option value="city_center">مركز المدينة</option>
@@ -69,20 +69,20 @@ const PropertyFilter = ({ onFilterChange}) => {
           </>
         ) : (
           <>
-            {/* الفئات الخاصة بـ شراء و آجار */}
-            <select className="filter-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            {/* الفئات الخاصة بـ شراء و إيجار */}
+            <select className="filter-select" value={subcategory} onChange={(e) => setsubcategory(e.target.value)}>
               <option value="">الفئة</option>
-              <option value="apartment">شقة</option>
-              <option value="villa">فيلا</option>
-              <option value="office">مكتب</option>
-              <option value="restaurant">مطعم</option>
-              <option value="store">متجر</option>
-              <option value="clinic">عيادة</option>
-              <option value="palace">قصر</option>
+              <option value="شقة">شقة</option>
+              <option value="فيلا">فيلا</option>
+              <option value="مكتب">مكتب</option>
+              <option value="مطعم">مطعم</option>
+              <option value="متجر">متجر</option>
+              <option value="عيادة">عيادة</option>
+              <option value="قصر">قصر</option>
             </select>
 
             {/* عدد الغرف */}
-            <select className="filter-select" value={livingRooms} onChange={(e) => setLivingRooms(e.target.value)}>
+            <select className="filter-select" value={rooms} onChange={(e) => setrooms(e.target.value)}>
               <option value="">الغرف</option>
               {[1, 2, 3, 4, 5, 6].map((num) => (
                 <option key={num} value={num}>{num}</option>

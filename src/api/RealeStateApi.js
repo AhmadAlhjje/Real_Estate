@@ -16,3 +16,18 @@ export const fetchProperties = async () => {
     return [];
   }
 };
+
+
+//  دالة استلام العقارات حسب ال id
+export const getPropertyById = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/realStates/${id}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch property details");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching property details:", error);
+    return null;
+  }
+};

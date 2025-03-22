@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Filter from "../../components/Filter/Filter";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
-import { fetchProperties } from "../../api/Properties"; // استيراد دالة جلب البيانات
+import { fetchProperties } from "../../api/RealeStateApi"; // استيراد دالة جلب البيانات
 
 const HomePage = () => {
   const [properties, setProperties] = useState([]); // تخزين العقارات المسترجعة
@@ -25,7 +25,7 @@ const HomePage = () => {
       <h2 className="text-center mb-4">العقارات المتاحة</h2>
       <Filter onFilter={handleFilter} />
       
-      <h2 className="text-start" style={{ marginTop: "60px" }}>أكثر العقارات مشاهدة</h2>
+      <h2 className="text-start" style={{ marginTop: "60px", fontSize:"30px" , fontWeight:"bolder"}}>أكثر العقارات مشاهدة</h2>
       <div className="row mt-4">
         {properties
           .filter((prop) => filterType === "all" || prop.type === filterType)
@@ -36,7 +36,7 @@ const HomePage = () => {
         ))}
       </div>
 
-      <h2 className="text-start" style={{ marginTop: "60px" }}>أحدث العقارات</h2>
+      <h2 className="text-start" style={{ marginTop: "60px",fontSize:"30px" , fontWeight:"bolder" }}>أحدث العقارات</h2>
       <div className="row mt-4 mb-4">
         {properties
           .filter((prop) => filterType === "all" || prop.type === filterType)

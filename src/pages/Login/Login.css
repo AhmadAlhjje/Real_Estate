@@ -45,6 +45,7 @@
   
   .btn-primary:hover {
     background: #0056b3;
+    font-weight: bolder;
   }
   
   /* تنسيق رابط "نسيت كلمة المرور" */

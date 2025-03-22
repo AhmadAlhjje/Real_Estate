@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Filter = ({ onFilter }) => {
-  const [selected, setSelected] = useState("آجار");
+  const [selected, setSelected] = useState("إيجار");
 
   const handleFilter = (filterType) => {
     setSelected(filterType);
@@ -12,10 +12,10 @@ const Filter = ({ onFilter }) => {
     <div className="d-flex justify-content-center mt-3">
       <div className="d-flex bg-light p-2 rounded-3 shadow-sm" style={{ width: "60%", maxWidth: "600px" }}>
       <button 
-          className={`btn ${selected === "آجار" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
-          onClick={() => handleFilter("آجار")}
+          className={`btn ${selected === "إيجار" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
+          onClick={() => handleFilter("إيجار")}
         >
-          آجار
+          إيجار
         </button>
         <button 
           className={`btn ${selected === "بيع" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 

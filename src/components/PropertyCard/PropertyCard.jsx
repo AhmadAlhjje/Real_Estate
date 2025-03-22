@@ -47,12 +47,8 @@ const PropertyCard = ({ property }) => {
             <span><FaBath /> {property.bathrooms}</span>
             <span><FaBed /> {property.rooms}</span>
           </div>
-          {/* تعديل الرابط لتمرير الكائن property عبر state */}
           <Link
-            to={{
-              pathname: `/property/${property.id}`,
-              state: { property }, // تمرير الكائن الكامل كجزء من الحالة
-            }}
+            to={`/property/${property.id}`}
             className="btn btn-outline-primary w-100 mt-3 rounded-pill"
           >
             عرض التفاصيل

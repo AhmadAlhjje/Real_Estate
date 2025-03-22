@@ -1,45 +1,54 @@
-import React from "react";
-import { useParams, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import MapComponent from "../../components/MapComponent/MapComponent";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { FaExpand } from "react-icons/fa";
 import "./PropertyDetails.css";
+import { getPropertyById } from '../../api/RealeStateApi';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-const properties = [
-  {
-    id: 2,
-    title: "مشروع جاهز للتسليم",
-    type: "آجار",
-    category: "شقة",
-    subCategory: "منزل",
-    city: "Aleppo",
-    area: 120,
-    price: 275000,
-    rooms: 3,
-    bathrooms: 2,
-    livingRooms: 3,
-    rentType: "سنوي",
-    images: ["/s6.jpg", "/s7.jpg"],
-    video: "public/video2.mp4",
-    description: "شقة جديدة بتصميم حديث وإطلالة رائعة.",
-    views: 250,
-    latitude: 36.215,
-    longitude: 37.1598,
-    addedDate: new Date("2025-03-02T12:00:00"),
-  },
-];
-
 const PropertyDetails = () => {
   const { id } = useParams(); // استخراج الـ id من الرابط
-  const location = useLocation(); // استخراج الحالة (state) من الرابط
+  const [property, setProperty] = useState(null); // لتخزين بيانات العقار
+  const [loading, setLoading] = useState(true); // لتحديد حالة التحميل
+  const [error, setError] = useState(null); // لتخزين رسالة الخطأ
 
-  // الحصول على العقار من الحالة أو البحث باستخدام الـ id
-  const property = location.state?.property || properties.find((p) => p.id === parseInt(id));
+  // دالة لجلب بيانات العقار من الـ API
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        const data = await getPropertyById(id);
+        if (data) {
+          setProperty(data);
+        } else {
+          setError("Failed to fetch property details.");
+        }
+      // eslint-disable-next-line no-unused-vars
+      } catch (err) {
+        setError("حدث خطأ أثناء جلب بيانات العقار.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProperty();
+  }, [id]);
 
-  if (!property) return <h2 className="text-center">العقار غير موجود</h2>;
+  // عرض مؤشر التحميل إذا كانت البيانات قيد التحميل
+  if (loading) {
+    return <h2 className="text-center">جاري التحميل...</h2>;
+  }
+
+  // عرض رسالة الخطأ إذا حدث خطأ أثناء جلب البيانات
+  if (error) {
+    return <h2 className="text-center text-danger">{error}</h2>;
+  }
+
+  // إذا لم يتم العثور على العقار
+  if (!property) {
+    return <h2 className="text-center">العقار غير موجود</h2>;
+  }
 
   // تحويل الصور إلى الصيغة المطلوبة من مكتبة react-image-gallery
   const images = property.images.map((img) => ({
@@ -64,7 +73,7 @@ const PropertyDetails = () => {
       >
         <h2 className="fw-bold text-dark">{property.title}</h2>
         <h4 className="text-success fw-bold">
-          USD {property.price.toLocaleString()}
+          USD {parseFloat(property.price).toLocaleString()}
         </h4>
       </motion.div>
 
@@ -136,13 +145,14 @@ const PropertyDetails = () => {
           <div className="row">
             {[
               { icon: "🏠", label: " النوع: ", value: property.type },
-              { icon: "🏢", label: "الفئة: ", value: property.category },
+              { icon: "🏢", label: "الفئة: ", value: property.subcategory },
               { icon: "📍", label: "المدينة: ", value: property.city },
               { icon: "📏", label: "المساحة: ", value: `${property.area} متر مربع` },
               { icon: "🛏️", label: "غرف النوم: ", value: property.rooms },
               { icon: "🚿", label: "الحمام: ", value: property.bathrooms },
-              { icon: "🛋️", label: "غرف المعيشة: ", value: property.livingRooms },
-              { icon: "📅", label: "نوع الإيجار: ", value: property.rentType },
+              ...(property.type === "إيجار"
+                ? [{ icon: "📅", label: "نوع الإيجار: ", value: property.rent_type || "غير متاح" }]
+                : []),
             ].map(({ icon, label, value }, index) => (
               <div key={index} className="col-6 detail-item">
                 <span className="icon">{icon} </span>
@@ -160,7 +170,8 @@ const PropertyDetails = () => {
               <strong>عدد المشاهدات:</strong> {property.views}
             </li>
             <li>
-              <strong>تاريخ الإضافة:</strong> {property.addedDate.toLocaleDateString()}
+              <strong>تاريخ الإضافة:</strong>{" "}
+              {new Date(property.addedDate).toLocaleDateString()}
             </li>
           </ul>
         </div>

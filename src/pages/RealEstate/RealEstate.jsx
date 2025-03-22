@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropertyFilter from "../../components/PropertyFilter/PropertyFilter";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
-import { fetchProperties } from "../../api/Properties"; // استيراد دالة جلب البيانات من الـ API
+import { fetchProperties } from "../../api/RealeStateApi"; // استيراد دالة جلب البيانات من الـ API
 
 const RealEstate = () => {
   const [properties, setProperties] = useState([]); // تخزين العقارات المحملة من API
@@ -23,9 +23,9 @@ const RealEstate = () => {
     const filtered = properties.filter((prop) => {
       return (
         (filters.propertyType ? prop.type === filters.propertyType : true) &&
-        (filters.category ? prop.category === filters.category : true) &&
+        (filters.subcategory ? prop.subcategory === filters.subcategory : true) &&
         (filters.city ? prop.city === filters.city : true) &&
-        (filters.livingRooms ? prop.livingRooms === parseInt(filters.livingRooms) : true) &&
+        (filters.rooms ? prop.rooms === parseInt(filters.rooms) : true) &&
         (filters.bathrooms ? prop.bathrooms === parseInt(filters.bathrooms) : true) &&
         (filters.priceRange?.min ? prop.price >= parseInt(filters.priceRange.min) : true) &&
         (filters.priceRange?.max ? prop.price <= parseInt(filters.priceRange.max) : true)
