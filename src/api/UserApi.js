@@ -1,6 +1,6 @@
 import { BASE_URL} from './api'
 
-// دالة إرسال بيانات التسجيل إلى API
+// دالة انشاء حساب
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
@@ -22,5 +22,27 @@ export const registerUser = async (userData) => {
     return null;
   }
 };
+
+// دالة  تسجيل الدخول
+export const loginUser = async (formData) => {
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error("فشل تسجيل الدخول، تحقق من اسم المستخدم أو كلمة المرور.");
+      }
+  
+      const data = await response.json();
+      return data; // إرجاع التوكن
+    } catch (error) {
+      throw new Error(error.message); // إعادة الخطأ
+    }
+  };
 
 
