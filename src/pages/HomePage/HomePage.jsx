@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     const getProperties = async () => {
       const data = await fetchProperties();
-      setProperties(data); // تحديث حالة العقارات
+      setProperties(data); 
     };
     getProperties();
   }, []);

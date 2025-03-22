@@ -38,14 +38,14 @@ const PropertyCard = ({ property }) => {
           </div>
           <h5 className="text-primary fw-bold">USD {property.price.toLocaleString()}</h5>
           <p className="text-muted small"><FaMapMarkerAlt /> {property.city}</p>
-          <p className="text-muted small"><FaHome /> {property.subCategory}</p>
+          <p className="text-muted small"><FaHome /> {property.subcategory}</p>
           {property.type === "آجار" && (
             <p className="text-muted small"><strong>نوع الإيجار:</strong> {property.rentType}</p>
           )}
           <div className="d-flex justify-content-between text-muted small">
             <span><FaRulerCombined /> {property.area} M²</span>
             <span><FaBath /> {property.bathrooms}</span>
-            <span><FaBed /> {property.livingRooms}</span>
+            <span><FaBed /> {property.rooms}</span>
           </div>
           {/* تعديل الرابط لتمرير الكائن property عبر state */}
           <Link
