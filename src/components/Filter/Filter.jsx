@@ -18,10 +18,10 @@ const Filter = ({ onFilter }) => {
           آجار
         </button>
         <button 
-          className={`btn ${selected === "شراء" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
-          onClick={() => handleFilter("شراء")}
+          className={`btn ${selected === "بيع" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
+          onClick={() => handleFilter("بيع")}
         >
-          شراء
+          بيع
         </button>
         <button 
           className={`btn ${selected === "مشاريع" ? "btn-dark text-white" : "btn-light text-dark"} flex-grow-1 rounded-pill fw-bold`} 
