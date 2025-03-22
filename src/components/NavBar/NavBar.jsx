@@ -38,6 +38,13 @@ const NavBar = () => {
             </Link>
           </button>
 
+          {/* <button className="nav-btn">
+            <Link to="/a" className="nav-icon-link">
+              <FaPlusCircle className="nav-icon" />
+              <span className="nav-text"> مزادات </span>
+            </Link>
+          </button> */}
+
           {/* User Button */}
           <button className="nav-btn" onClick={() => setUserMenuOpen(!userMenuOpen)}>
             <FaUser className="nav-icon" />

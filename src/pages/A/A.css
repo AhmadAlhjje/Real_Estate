@@ -1,0 +1,138 @@
+/* 
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.app {
+    padding: 20px;
+    text-align: center;
+}
+
+.auction-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+
+.auction-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 320px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.auction-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-header {
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/300x200');
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+    color: white;
+    text-align: left;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    float: left;
+    margin-right: 10px;
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #6c5ce7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-badge.open {
+    background: #28a745; 
+}
+
+.card-body {
+    padding: 20px;
+    text-align: left;
+}
+
+.dates {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.details i {
+    margin-right: 5px;
+    color: #6c5ce7;
+}
+
+.price {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.timer {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e74c3c;
+}
+
+.timer i {
+    margin-left: 5px;
+}
+
+.register-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+.register-btn.open {
+    background: #28a745;
+}
+
+.register-btn:hover {
+    background: #4b3fbc;
+}
+
+.register-btn i {
+    margin-left: 5px;
+}
+
+.card-footer {
+    background: #6c5ce7;
+    padding: 10px;
+    text-align: center;
+}    */
