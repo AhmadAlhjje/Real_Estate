@@ -15,6 +15,7 @@
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.5.0",
     "leaflet": "^1.9.4",
+    "photo-sphere-viewer": "^4.8.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
