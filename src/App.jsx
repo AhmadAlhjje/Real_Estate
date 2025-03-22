@@ -24,7 +24,7 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/realEstate" element={<RealEstate />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/property/2" element={<PropertyDetails />} />
+        <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/AddProperty" element={<AddProperty />} />
         {/* <Route path="/a" element={<A />} /> */}
         {/* <Route path="/MapComponent" element={<MapComponent />} /> */}

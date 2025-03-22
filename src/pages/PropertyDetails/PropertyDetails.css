@@ -1,112 +1,195 @@
 /* تنسيقات عامة */
 .container {
-    font-family: "Poppins", sans-serif;
-    color: #2c3e50;
-  }
-  
+  font-family: "Poppins", sans-serif;
+  color: #2c3e50;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* صندوق الفيديو (التصميم القديم) */
+.video-box {
+  position: relative;
+  height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f4f4f4;
+  transition: transform 0.3s ease-in-out;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* صندوق الخريطة (التصميم القديم) */
+.map-box {
+  height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #f4f4f4;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* صندوق المعرض (التصميم القديم) */
+.gallery-box {
+  height: 330px;
+  border-radius: 30px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fullscreen-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* وصف العقار (التصميم الجديد) */
+.description-box {
+  margin-bottom: 50px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* وصف العقار */
+.description-box p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #444;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* التفاصيل الأساسية */
+.basic-details-box {
+  margin-bottom: 40px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+.detail-item:hover {
+  transform: translateY(-3px);
+  background: #e9ecef;
+}
+
+.icon {
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-right: 15px;
+}
+
+.detail-item strong {
+  font-size: 1.1rem;
+  color: #333;
+  margin-right: 10px;
+}
+
+.detail-item span {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* إحصائيات العقار */
+.stats-box {
+  margin-bottom: 40px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-box ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stats-box li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.stats-box li:hover {
+  background: #d2e3fc;
+}
+
+.stats-box li strong {
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.stats-box li i {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
   .section-title {
     font-size: 1.8rem;
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
   }
-  
-  /* صندوق الفيديو */
-  .video-box {
-    position: relative;
-    height: 150px;
-    border-radius: 15px;
-    overflow: hidden;
-    cursor: pointer;
-    background: #f4f4f4;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .video-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: center;
-    font-size: 1.2rem;
-  }
-  
-  /* صندوق الخريطة */
-  .map-box {
-    height: 150px;
-    border-radius: 15px;
-    overflow: hidden;
-    background: #f4f4f4;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  /* صندوق المعرض */
-  .gallery-box {
-    height: 330px;
-    border-radius: 30px;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .fullscreen-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    border: none;
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 10;
-  }
-  
-  /* وصف العقار */
-  .description-box {
-    margin-bottom: 40px;
-  }
-  
+
   .description-box p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #555;
+    font-size: 1rem;
   }
-  
-  /* التفاصيل الأساسية */
-  .basic-details-box {
-    margin-bottom: 40px;
-  }
-  
+
   .detail-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease-in-out;
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .detail-item:hover {
-    transform: translateY(-5px);
-  }
-  
+
   .icon {
-    font-size: 1.5rem;
-    color: #007bff;
-    margin-right: 10px;
-  }
-  
-  /* إحصائيات العقار */
-  .stats-box {
-    margin-bottom: 40px;
-  }
-  
-  .stats-box li {
-    font-size: 1.1rem;
     margin-bottom: 10px;
   }
+
+  .stats-box li {
+    flex-direction: column;
+    text-align: center;
+  }
+}

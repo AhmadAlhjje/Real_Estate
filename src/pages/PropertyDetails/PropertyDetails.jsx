@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import MapComponent from "../../components/MapComponent/MapComponent";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -33,9 +33,12 @@ const properties = [
 ];
 
 const PropertyDetails = () => {
-  const { id } = useParams();
-  console.log(id)
-  const property = properties.find((p) => p.id === 2);
+  const { id } = useParams(); // استخراج الـ id من الرابط
+  const location = useLocation(); // استخراج الحالة (state) من الرابط
+
+  // الحصول على العقار من الحالة أو البحث باستخدام الـ id
+  const property = location.state?.property || properties.find((p) => p.id === parseInt(id));
+
   if (!property) return <h2 className="text-center">العقار غير موجود</h2>;
 
   // تحويل الصور إلى الصيغة المطلوبة من مكتبة react-image-gallery
@@ -124,7 +127,7 @@ const PropertyDetails = () => {
         {/* وصف العقار */}
         <div className="description-box">
           <h4 className="section-title">وصف العقار</h4>
-          <p>{property.description}</p>
+          <h4>{property.description}</h4>
         </div>
 
         {/* التفاصيل الأساسية */}
@@ -132,18 +135,18 @@ const PropertyDetails = () => {
           <h4 className="section-title">المعلومات الأساسية</h4>
           <div className="row">
             {[
-              { icon: "🏠", label: "النوع:", value: property.type },
-              { icon: "🏢", label: "الفئة:", value: property.category },
-              { icon: "📍", label: "المدينة:", value: property.city },
-              { icon: "📏", label: "المساحة:", value: `${property.area} متر مربع` },
-              { icon: "🛏️", label: "غرف النوم:", value: property.rooms },
-              { icon: "🚿", label: "الحمام:", value: property.bathrooms },
-              { icon: "🛋️", label: "غرف المعيشة:", value: property.livingRooms },
-              { icon: "📅", label: "نوع الإيجار:", value: property.rentType },
+              { icon: "🏠", label: " النوع: ", value: property.type },
+              { icon: "🏢", label: "الفئة: ", value: property.category },
+              { icon: "📍", label: "المدينة: ", value: property.city },
+              { icon: "📏", label: "المساحة: ", value: `${property.area} متر مربع` },
+              { icon: "🛏️", label: "غرف النوم: ", value: property.rooms },
+              { icon: "🚿", label: "الحمام: ", value: property.bathrooms },
+              { icon: "🛋️", label: "غرف المعيشة: ", value: property.livingRooms },
+              { icon: "📅", label: "نوع الإيجار: ", value: property.rentType },
             ].map(({ icon, label, value }, index) => (
               <div key={index} className="col-6 detail-item">
-                <span className="icon">{icon}</span>
-                <strong>{label}</strong> {value}
+                <span className="icon">{icon} </span>
+                <strong> {label}</strong> {value}
               </div>
             ))}
           </div>
