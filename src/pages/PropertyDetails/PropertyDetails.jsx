@@ -19,6 +19,7 @@ const PropertyDetails = () => {
   // حالة لإظهار نموذج طلب المشاهدة
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [selectedDateTime, setSelectedDateTime] = useState("");
+  const [message, setMessage] = useState(""); // حالة جديدة للرسالة
 
   // دالة لعرض نموذج الطلب
   const handleViewRequest = () => {
@@ -27,11 +28,11 @@ const PropertyDetails = () => {
 
   // دالة لإرسال الطلب (يمكنك تخصيصها حسب الحاجة)
   const handleSubmitRequest = () => {
-    if (!selectedDateTime) {
-      alert("يرجى اختيار تاريخ ووقت.");
+    if (!selectedDateTime || !message.trim()) {
+      alert("يرجى اختيار التاريخ والوقت وإدخال رسالة.");
       return;
     }
-    alert(`تم إرسال طلب المشاهدة بتاريخ: ${selectedDateTime}`);
+    alert(`تم إرسال طلب المشاهدة بتاريخ: ${selectedDateTime}\nالرسالة: ${message}`);
     setShowRequestModal(false); // إغلاق النموذج بعد الإرسال
   };
 
@@ -224,6 +225,19 @@ const PropertyDetails = () => {
                   value={selectedDateTime}
                   onChange={(e) => setSelectedDateTime(e.target.value)}
                 />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="message" className="form-label">
+                  الرسالة:
+                </label>
+                <textarea
+                  className="form-control"
+                  id="message"
+                  rows="3"
+                  placeholder="أدخل رسالة..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
               </div>
               <div className="d-flex justify-content-end">
                 <button

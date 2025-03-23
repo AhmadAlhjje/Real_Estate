@@ -318,3 +318,40 @@
   background: #28a745;
   border: none;
 }
+
+/* تنسيق حقل الرسالة */
+.view-request-modal .form-control {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.view-request-modal textarea.form-control {
+  resize: none; /* منع تغيير حجم النص يدويًا */
+  height: auto; /* ارتفاع تلقائي بناءً على عدد الأسطر */
+}
+
+.view-request-modal textarea.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* تعديل على الزر */
+.view-request-modal .btn-success {
+  background: #28a745;
+  border: none;
+}
+
+.view-request-modal .btn-success:hover {
+  background: #218838;
+}
+
+.view-request-modal .btn-secondary {
+  background: #6c757d;
+  border: none;
+}
+
+.view-request-modal .btn-secondary:hover {
+  background: #5a6268;
+}
