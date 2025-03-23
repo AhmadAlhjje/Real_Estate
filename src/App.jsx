@@ -13,7 +13,7 @@ import AddProperty from './pages/AddProperty/AddProperty';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
-  const hideNavBar = location.pathname === "/register" ||location.pathname === "/login"; // التحقق إذا كان في صفحة التسجيل
+  const hideNavBar = location.pathname === "/register" ||location.pathname === "/login" ||location.pathname === "/dashboard"; // التحقق إذا كان في صفحة التسجيل
 
   return (
     <>

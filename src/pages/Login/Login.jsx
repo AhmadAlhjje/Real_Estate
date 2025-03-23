@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // استيراد useNavigate
 import "./Login.css"; // ملف التنسيقات
 import { FaUser, FaLock } from "react-icons/fa";
-import { loginUser } from "../../api/UserApi"; // استيراد دالة تسجيل الدخول من authAPI.js
+import { loginUser, loginAdmin } from "../../api/UserApi"; // استيراد دوال تسجيل الدخول
 
 const Login = () => {
   const navigate = useNavigate(); // إنشاء كائن التنقل
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    role: "user", // القيمة الافتراضية هي "مستخدم"
   });
   const [error, setError] = useState(null);
 
   // تحديث الحقول عند الكتابة
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   // إرسال الطلب عند الضغط على زر تسجيل الدخول
@@ -23,12 +25,21 @@ const Login = () => {
     setError(null);
 
     try {
-      const data = await loginUser(formData); // استخدام الدالة من authAPI
-      localStorage.setItem("token", data.token); // حفظ التوكن في localStorage
-      navigate("/"); // التوجيه إلى الصفحة الرئيسية
+      let data;
 
+      if (formData.role === "user") {
+        // تسجيل الدخول كمستخدم عادي
+        data = await loginUser(formData);
+        localStorage.setItem("token", data.token); // حفظ التوكن في localStorage
+        navigate("/"); // التوجيه إلى الصفحة الرئيسية
+      } else if (formData.role === "admin") {
+        // تسجيل الدخول كمسؤول
+        data = await loginAdmin(formData);
+        localStorage.setItem("token", data.token); // حفظ التوكن في localStorage
+        navigate("/dashboard"); // التوجيه إلى صفحة المسؤولين
+      }
     } catch (err) {
-      setError(err.message); // عرض رسالة الخطأ
+      setError(err.message || "حدث خطأ أثناء تسجيل الدخول."); // عرض رسالة الخطأ
     }
   };
 
@@ -71,6 +82,37 @@ const Login = () => {
                 onChange={handleChange} 
                 required 
               />
+            </div>
+          </div>
+
+          {/* اختيار نوع الحساب */}
+          <div className="form-group">
+            <label>نوع الحساب</label>
+            <div className="d-flex gap-3">
+              <div className="form-check">
+                <input
+                  type="radio"
+                  id="user"
+                  name="role"
+                  value="user"
+                  checked={formData.role === "user"}
+                  onChange={handleChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="user" className="form-check-label">مستخدم</label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  id="admin"
+                  name="role"
+                  value="admin"
+                  checked={formData.role === "admin"}
+                  onChange={handleChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="admin" className="form-check-label">مسؤول</label>
+              </div>
             </div>
           </div>
 

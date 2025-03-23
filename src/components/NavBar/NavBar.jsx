@@ -84,7 +84,6 @@ const NavBar = () => {
                 <Link to="/register" className="user-dropdown-item">إنشاء حساب</Link>
               </>
             )}
-            <Link to="/favorites" className="user-dropdown-item">المفضلات</Link>
           </div>
         )}
       </nav>

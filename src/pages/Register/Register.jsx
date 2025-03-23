@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // استيراد useNavigate
 import "./Register.css"; // ملف التنسيقات المخصصة
 import { FaUser, FaLock, FaPhone, FaWhatsapp } from "react-icons/fa";
-import { registerUser } from "../../api/UserApi"; // استيراد دالة التسجيل
+import { registerUser, registerAdmin } from "../../api/UserApi"; // استيراد دوال التسجيل
 
 const Register = () => {
   const navigate = useNavigate(); // إنشاء كائن التنقل
@@ -11,27 +11,43 @@ const Register = () => {
     password: "",
     phone: "",
     whatsapp: "",
+    role: "user", // القيمة الافتراضية هي "مستخدم"
   });
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+
     try {
-      await registerUser(formData); 
-      setSuccess("تم التسجيل بنجاح! سيتم نقلك إلى صفحة تسجيل الدخول...");
-      setTimeout(() => {
-        navigate("/login"); // النقل إلى صفحة تسجيل الدخول بعد ثانيتين
-      }, 2000);
+      let response;
+
+      if (formData.role === "user") {
+        // تسجيل المستخدم العادي
+        response = await registerUser(formData);
+      } else if (formData.role === "admin") {
+        // تسجيل المسؤول
+        response = await registerAdmin(formData);
+      }
+
+      if (response) {
+        setSuccess("تم التسجيل بنجاح! سيتم نقلك إلى صفحة تسجيل الدخول...");
+        setTimeout(() => {
+          navigate("/login"); // النقل إلى صفحة تسجيل الدخول بعد ثانيتين
+        }, 2000);
+      } else {
+        setError("حدث خطأ أثناء التسجيل.");
+      }
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "حدث خطأ أثناء التسجيل.");
     }
   };
 
@@ -39,7 +55,7 @@ const Register = () => {
     <div className="register-container">
       <div className="register-box shadow-lg">
         <h2 className="text-center mb-4">إنشاء حساب جديد</h2>
-        
+
         {error && <div className="alert alert-danger">{error}</div>}
         {success && <div className="alert alert-success">{success}</div>}
 
@@ -109,6 +125,37 @@ const Register = () => {
                 onChange={handleChange} 
                 required 
               />
+            </div>
+          </div>
+
+          {/* اختيار نوع الحساب */}
+          <div className="form-group">
+            <label>نوع الحساب</label>
+            <div className="d-flex gap-3">
+              <div className="form-check">
+                <input
+                  type="radio"
+                  id="user"
+                  name="role"
+                  value="user"
+                  checked={formData.role === "user"}
+                  onChange={handleChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="user" className="form-check-label">مستخدم</label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  id="admin"
+                  name="role"
+                  value="admin"
+                  checked={formData.role === "admin"}
+                  onChange={handleChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="admin" className="form-check-label">مسؤول</label>
+              </div>
             </div>
           </div>
 

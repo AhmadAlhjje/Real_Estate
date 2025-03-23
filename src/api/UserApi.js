@@ -1,6 +1,6 @@
 import { BASE_URL} from './api'
 
-// دالة انشاء حساب
+// دالة انشاء حساب مستخدم
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
@@ -23,8 +23,32 @@ export const registerUser = async (userData) => {
   }
 };
 
-// دالة  تسجيل الدخول
-export const loginUser = async (formData) => {
+
+// دالة انشاء حساب المسؤول
+export const registerAdmin = async (adminData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/propertyOwners/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(adminData),
+    });
+
+    if (!response.ok) {
+      throw new Error("فشل في تسجيل المسؤول");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("خطأ أثناء تسجيل المسؤول:", error);
+    return null;
+  }
+};
+
+  // دالة تسجيل الدخول للمستخدم
+  export const loginUser = async (formData) => {
     try {
       const response = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
@@ -44,5 +68,27 @@ export const loginUser = async (formData) => {
       throw new Error(error.message); // إعادة الخطأ
     }
   };
+
+  // دالة تسجيل الدخول للمسؤول
+export const loginAdmin = async (adminData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/propertyOwners/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(adminData),
+    });
+
+    if (!response.ok) {
+      throw new Error("فشل تسجيل الدخول كمسؤول، تحقق من البيانات.");
+    }
+
+    const data = await response.json();
+    return data; // إرجاع التوكن
+  } catch (error) {
+    throw new Error(error.message); // إعادة الخطأ
+  }
+};
 
 
