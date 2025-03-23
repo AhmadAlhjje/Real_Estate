@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import "./PropertyList.css";
-import { getUserIdFromToken, fetchUserProperties } from "../../api/RealeStateApi";
+import { fetchUserProperties } from "../../api/RealeStateApi";
+import { getUserIdFromToken } from "../../api/api";
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]); // لتخزين بيانات العقارات

@@ -54,20 +54,6 @@
     };
 
 
-    // دالة لاستخراج معرّف المستخدم من التوكن
-    export const getUserIdFromToken = () => {
-      const token = localStorage.getItem("token");
-      if (!token) return null;
-
-      try {
-        const payload = JSON.parse(atob(token.split(".")[1])); // فك تشفير الجزء الأوسط من التوكن
-        return payload.id; // استخراج معرّف المستخدم
-      } catch (err) {
-        console.error("Invalid token:", err);
-        return null;
-      }
-    };
-
     // دالة لجلب العقارات الخاصة بالمستخدم
     export const fetchUserProperties = async (userId) => {
       try {

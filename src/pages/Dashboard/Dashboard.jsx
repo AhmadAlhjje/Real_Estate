@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropertyList from "../../components/PropertyList/PropertyList";
 import "./Dashboard.css";
 import AddProperty from "../AddProperty/AddProperty";
+import ViewRequests from "../ViewRequests/ViewRequests";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("properties");
@@ -49,7 +50,7 @@ const Dashboard = () => {
             {/* محتوى لوحة التحكم */}
       <div className="dashboard-content">
         {activeTab === "properties" && <PropertyList />}
-        {activeTab === "requests" && <p className="no-content">لا توجد طلبات مراسلة بعد.</p>}
+        {activeTab === "requests"&&<ViewRequests/>}
         {activeTab === "add" && <AddProperty/>}
       </div>
     </div>
