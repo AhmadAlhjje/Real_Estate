@@ -1,2 +1,2 @@
 const port=4000
-export const BASE_URL = `http://localhost:${port}`
+export const BASE_URL = `http://192.168.2.138:${port}`

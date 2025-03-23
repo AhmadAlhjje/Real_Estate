@@ -59,15 +59,15 @@ const AddProperty = () => {
               <Form.Label>نوع العقار</Form.Label>
               <Form.Select name="type" value={formData.type} onChange={handleChange}>
                 <option value="بيع">بيع</option>
-                <option value="اجار">إجار</option>
+                <option value="إيجار">إيجار</option>
                 <option value="مشروع">مشروع</option>
               </Form.Select>
             </Form.Group>
           </Col>
-          {formData.type === "اجار" && (
+          {formData.type === "إيجار" && (
             <Col md={6}>
               <Form.Group className="mb-3 text-start">
-                <Form.Label>نوع الإجار</Form.Label>
+                <Form.Label>نوع الإيجار</Form.Label>
                 <Form.Select name="rentType" value={formData.rentType} onChange={handleChange}>
                   <option value="شهري">شهري</option>
                   <option value="سنوي">سنوي</option>
