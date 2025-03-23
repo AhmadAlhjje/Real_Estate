@@ -3,20 +3,38 @@ import { useParams } from "react-router-dom";
 import MapComponent from "../../components/MapComponent/MapComponent";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { FaExpand } from "react-icons/fa";
+import { FaExpand, FaEye } from "react-icons/fa"; // إضافة أيقونة طلب المشاهدة
 import "./PropertyDetails.css";
 import { getPropertyById } from '../../api/RealeStateApi';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import QRCode from "react-qr-code"; // استيراد مكتبة QR Code البديلة
+import QRCode from "react-qr-code";
 
 const PropertyDetails = () => {
-  const { id } = useParams(); // استخراج الـ id من الرابط
-  const [property, setProperty] = useState(null); // لتخزين بيانات العقار
-  const [loading, setLoading] = useState(true); // لتحديد حالة التحميل
-  const [error, setError] = useState(null); // لتخزين رسالة الخطأ
+  const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // دالة لجلب بيانات العقار من الـ API
+  // حالة لإظهار نموذج طلب المشاهدة
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [selectedDateTime, setSelectedDateTime] = useState("");
+
+  // دالة لعرض نموذج الطلب
+  const handleViewRequest = () => {
+    setShowRequestModal(true);
+  };
+
+  // دالة لإرسال الطلب (يمكنك تخصيصها حسب الحاجة)
+  const handleSubmitRequest = () => {
+    if (!selectedDateTime) {
+      alert("يرجى اختيار تاريخ ووقت.");
+      return;
+    }
+    alert(`تم إرسال طلب المشاهدة بتاريخ: ${selectedDateTime}`);
+    setShowRequestModal(false); // إغلاق النموذج بعد الإرسال
+  };
+
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -36,35 +54,29 @@ const PropertyDetails = () => {
     fetchProperty();
   }, [id]);
 
-  // عرض مؤشر التحميل إذا كانت البيانات قيد التحميل
   if (loading) {
     return <h2 className="text-center">جاري التحميل...</h2>;
   }
 
-  // عرض رسالة الخطأ إذا حدث خطأ أثناء جلب البيانات
   if (error) {
     return <h2 className="text-center text-danger">{error}</h2>;
   }
 
-  // إذا لم يتم العثور على العقار
   if (!property) {
     return <h2 className="text-center">العقار غير موجود</h2>;
   }
 
-  // تحويل الصور إلى الصيغة المطلوبة من مكتبة react-image-gallery
   const images = property.images.map((img) => ({
     original: img,
     thumbnail: img,
   }));
 
-  // تأثيرات الحركة
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // إنشاء رابط QR Code
-  const qrData = `http://localhost:5173/property/${id}`; // رابط العقار
+  const qrData = `http://localhost:5173/property/${id}`;
 
   return (
     <div className="container mt-5">
@@ -97,7 +109,6 @@ const PropertyDetails = () => {
             />
             <div className="video-overlay">▶️ مشاهدة جولة بالفيديو</div>
           </motion.div>
-
           {/* صندوق الخريطة */}
           <motion.div className="map-box" whileHover={{ scale: 1.02 }}>
             <MapComponent
@@ -107,7 +118,6 @@ const PropertyDetails = () => {
             />
           </motion.div>
         </div>
-
         {/* القسم الأيسر - عرض الصور باستخدام ImageGallery */}
         <div className="col-md-8 mt-4 mt-md-0">
           <motion.div className="gallery-box" whileHover={{ scale: 1.02 }}>
@@ -186,6 +196,49 @@ const PropertyDetails = () => {
             </li>
           </ul>
         </div>
+
+        {/* زر طلب المشاهدة */}
+        <motion.div
+          className="request-view-button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <button className="btn btn-primary" onClick={handleViewRequest}>
+            <FaEye size={20} className="me-2" /> طلب مشاهدة
+          </button>
+        </motion.div>
+
+        {/* نموذج طلب المشاهدة */}
+        {showRequestModal && (
+          <div className="view-request-modal">
+            <div className="modal-content">
+              <h5 className="modal-title">طلب مشاهدة العقار</h5>
+              <div className="mb-3">
+                <label htmlFor="datetime" className="form-label">
+                  اختر التاريخ والوقت:
+                </label>
+                <input
+                  type="datetime-local"
+                  className="form-control"
+                  id="datetime"
+                  value={selectedDateTime}
+                  onChange={(e) => setSelectedDateTime(e.target.value)}
+                />
+              </div>
+              <div className="d-flex justify-content-end">
+                <button
+                  className="btn btn-secondary me-2"
+                  onClick={() => setShowRequestModal(false)}
+                >
+                  إلغاء
+                </button>
+                <button className="btn btn-success" onClick={handleSubmitRequest}>
+                  إرسال الطلب
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </motion.div>
     </div>
   );
