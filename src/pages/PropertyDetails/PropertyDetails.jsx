@@ -1,3 +1,4 @@
+// PropertyDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MapComponent from "../../components/MapComponent/MapComponent";
@@ -5,16 +6,16 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { FaExpand, FaEye } from "react-icons/fa"; // إضافة أيقونة طلب المشاهدة
 import "./PropertyDetails.css";
-import { getPropertyById } from '../../api/RealeStateApi';
+import { getPropertyById, sendViewRequest } from '../../api/RealeStateApi'; // استدعاء الدوال من ملف الـ API
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import QRCode from "react-qr-code";
 
 const PropertyDetails = () => {
-  const { id } = useParams();
-  const [property, setProperty] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { id } = useParams(); // استخراج الـ id من الرابط
+  const [property, setProperty] = useState(null); // لتخزين بيانات العقار
+  const [loading, setLoading] = useState(true); // لتحديد حالة التحميل
+  const [error, setError] = useState(null); // لتخزين رسالة الخطأ
 
   // حالة لإظهار نموذج طلب المشاهدة
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -26,20 +27,60 @@ const PropertyDetails = () => {
     setShowRequestModal(true);
   };
 
-  // دالة لإرسال الطلب (يمكنك تخصيصها حسب الحاجة)
-  const handleSubmitRequest = () => {
+  // دالة لاستخراج معرّف المستخدم من التوكن
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1])); // فك تشفير الجزء الأوسط من التوكن
+      return payload.id; // استخراج معرّف المستخدم
+    } catch (err) {
+      console.error("Invalid token:", err);
+      return null;
+    }
+  };
+
+  // دالة لإرسال الطلب إلى الـ API
+  const handleSubmitRequest = async () => {
     if (!selectedDateTime || !message.trim()) {
       alert("يرجى اختيار التاريخ والوقت وإدخال رسالة.");
       return;
     }
-    alert(`تم إرسال طلب المشاهدة بتاريخ: ${selectedDateTime}\nالرسالة: ${message}`);
-    setShowRequestModal(false); // إغلاق النموذج بعد الإرسال
+
+    // استخراج معرّف المستخدم
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      alert("يجب تسجيل الدخول أولاً.");
+      return;
+    }
+
+    // تقسيم التاريخ والوقت
+    const [visit_date, visit_time] = selectedDateTime.split("T");
+
+    // تحضير البيانات المرسلة
+    const requestData = {
+      property_id: parseInt(id), // معرّف العقار
+      user_id: userId, // معرّف المستخدم
+      message: message, // الرسالة
+      visit_date: visit_date, // تاريخ الزيارة
+      visit_time: visit_time, // وقت الزيارة
+    };
+
+    // إرسال البيانات إلى الـ API باستخدام الدالة المسؤولة
+    const success = await sendViewRequest(requestData);
+    if (success) {
+      alert(`تم إرسال طلب المشاهدة بنجاح!`);
+      setShowRequestModal(false); // إغلاق النموذج بعد الإرسال
+    } else {
+      alert("حدث خطأ أثناء إرسال الطلب. يرجى المحاولة لاحقًا.");
+    }
   };
 
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const data = await getPropertyById(id);
+        const data = await getPropertyById(id); // استخدام الدالة المستوردة
         if (data) {
           setProperty(data);
         } else {
