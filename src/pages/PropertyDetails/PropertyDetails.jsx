@@ -8,6 +8,7 @@ import "./PropertyDetails.css";
 import { getPropertyById } from '../../api/RealeStateApi';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import QRCode from "react-qr-code"; // استيراد مكتبة QR Code البديلة
 
 const PropertyDetails = () => {
   const { id } = useParams(); // استخراج الـ id من الرابط
@@ -61,6 +62,9 @@ const PropertyDetails = () => {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
+
+  // إنشاء رابط QR Code
+  const qrData = `http://localhost:5173/property/${id}`; // رابط العقار
 
   return (
     <div className="container mt-5">
@@ -165,13 +169,20 @@ const PropertyDetails = () => {
         {/* إحصائيات العقار */}
         <div className="stats-box">
           <h4 className="section-title">إحصائيات العقار</h4>
-          <ul className="list-unstyled">
+          <ul className="list-unstyled d-flex flex-wrap gap-3">
             <li>
               <strong>عدد المشاهدات:</strong> {property.views}
             </li>
             <li>
               <strong>تاريخ الإضافة:</strong>{" "}
               {new Date(property.addedDate).toLocaleDateString()}
+            </li>
+            {/* إضافة رمز QR هنا */}
+            <li className="qr-item">
+              <div className="qr-container">
+                <p className="mb-2">رمز QR للعقار</p>
+                <QRCode value={qrData} size={120} />
+              </div>
             </li>
           </ul>
         </div>

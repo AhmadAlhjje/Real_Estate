@@ -17,6 +17,7 @@
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "photo-sphere-viewer": "^4.8.1",
+    "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
@@ -25,6 +26,7 @@
     "react-leaflet": "^5.0.0",
     "react-multi-carousel": "^2.8.5",
     "react-photoswipe-gallery": "^3.1.1",
+    "react-qr-code": "^2.0.15",
     "react-router-dom": "^7.3.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1"
