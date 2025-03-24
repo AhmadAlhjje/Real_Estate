@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh; /* تأخذ كامل الشاشة */
-    background: linear-gradient(to right, #3a6073, #16222a); /* تدرج لوني جميل */
+    background: linear-gradient(to right, #3a6073, #16222a); /* تدرج لوني  */
   }
   
   /* صندوق تسجيل الدخول */
@@ -46,15 +46,5 @@
   .btn-primary:hover {
     background: #0056b3;
     font-weight: bolder;
-  }
-  
-  /* تنسيق رابط "نسيت كلمة المرور" */
-  .forgot-password {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .forgot-password:hover {
-    text-decoration: underline;
   }
   

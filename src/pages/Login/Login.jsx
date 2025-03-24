@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // استيراد useNavigate
-import "./Login.css"; // ملف التنسيقات
+import { useNavigate } from "react-router-dom"; 
 import { FaUser, FaLock } from "react-icons/fa";
-import { loginUser, loginAdmin } from "../../api/UserApi"; // استيراد دوال تسجيل الدخول
+import { loginUser, loginAdmin } from "../../api/UserApi"; 
+import "./Login.css";
 
 const Login = () => {
-  const navigate = useNavigate(); // إنشاء كائن التنقل
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: "user", // القيمة الافتراضية هي "مستخدم"
+    role: "user", 
   });
   const [error, setError] = useState(null);
 
@@ -23,10 +23,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
     try {
       let data;
-
       if (formData.role === "user") {
         // تسجيل الدخول كمستخدم عادي
         data = await loginUser(formData);
@@ -35,11 +33,11 @@ const Login = () => {
       } else if (formData.role === "admin") {
         // تسجيل الدخول كمسؤول
         data = await loginAdmin(formData);
-        localStorage.setItem("token", data.token); // حفظ التوكن في localStorage
+        localStorage.setItem("token", data.token); 
         navigate("/dashboard"); // التوجيه إلى صفحة المسؤولين
       }
     } catch (err) {
-      setError(err.message || "حدث خطأ أثناء تسجيل الدخول."); // عرض رسالة الخطأ
+      setError(err.message || "حدث خطأ أثناء تسجيل الدخول."); 
     }
   };
 
@@ -119,11 +117,6 @@ const Login = () => {
           {/* زر تسجيل الدخول */}
           <button type="submit" className="btn btn-primary w-100 mt-3">تسجيل الدخول</button>
         </form>
-
-        {/* رابط نسيان كلمة المرور */}
-        <div className="text-center mt-3">
-          <a href="#" className="forgot-password">نسيت كلمة المرور؟</a>
-        </div>
       </div>
     </div>
   );
