@@ -68,3 +68,25 @@
         return [];
       }
     };
+
+
+    // دالة اضافة عقارات
+    export const addRealEstate = async (data) => {
+      try {
+        const response = await fetch(`${BASE_URL}/realStates`, {
+          method: "POST",
+          body: data, // البيانات المرسلة كـ FormData
+        });
+    
+        if (!response.ok) {
+          // إذا كانت الاستجابة ليست ناجحة (مثل حالة 400 أو 500)
+          const errorData = await response.json();
+          throw new Error(errorData.error || "حدث خطأ أثناء إضافة العقار.");
+        }
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error("حدث خطأ أثناء إضافة العقار:", error.message);
+        throw error;
+      }
+    };

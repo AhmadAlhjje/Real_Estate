@@ -41,7 +41,7 @@ const Register = () => {
       if (response) {
         setSuccess("تم التسجيل بنجاح! سيتم نقلك إلى صفحة تسجيل الدخول...");
         setTimeout(() => {
-          navigate("/login"); // النقل إلى صفحة تسجيل الدخول بعد ثانيتين
+          navigate("/login");
         }, 2000);
       } else {
         setError("حدث خطأ أثناء التسجيل.");
