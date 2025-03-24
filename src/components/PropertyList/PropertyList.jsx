@@ -1,9 +1,9 @@
-// components/PropertyList.jsx
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
-import "./PropertyList.css";
-import { fetchUserProperties, deleteProperty, updateProperty } from "../../api/RealeStateApi"; // استيراد الدوال الجديدة
+import { fetchUserProperties, deleteProperty, updateProperty } from "../../api/RealeStateApi";
 import { getUserIdFromToken } from "../../api/api";
+import EditPropertyForm from "../../components/EditPropertyForm/EditPropertyForm"; 
+import "./PropertyList.css";
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]); // لتخزين بيانات العقارات
@@ -77,10 +77,10 @@ const PropertyList = () => {
   const handleSave = async () => {
     try {
       if (!editFormData) return;
-  
+
       // تحضير البيانات للإرسال
       const formData = new FormData();
-  
+
       // إضافة الحقول المعدلة فقط
       for (const key in editFormData) {
         if (key === "images") continue; // تجاهل الصور
@@ -88,13 +88,13 @@ const PropertyList = () => {
           formData.append(key, editFormData[key]);
         }
       }
-  
+
       console.log("Sending Data:", Object.fromEntries(formData)); // فحص البيانات المرسلة
-  
+
       // إرسال البيانات المعدلة إلى الـ API
-      const updatedProperty = await updateProperty(editFormData.id, formData);
+      const updatedProperty = await updateProperty(editFormData.id, Object.fromEntries(formData));
       console.log("Server Response:", updatedProperty); // فحص الاستجابة من الخادم
-  
+
       // تحديث قائمة العقارات
       setProperties((prevProperties) =>
         prevProperties.map((property) =>
@@ -103,9 +103,9 @@ const PropertyList = () => {
             : property
         )
       );
-  
+
       console.log("Updated Properties:", properties); // فحص البيانات المحدثة
-  
+
       // إغلاق النموذج بعد الحفظ
       setEditFormData(null);
     } catch (err) {
@@ -130,106 +130,14 @@ const PropertyList = () => {
 
   return (
     <div>
-      {/* نموذج التعديل */}
+      {/* استدعاء مكون نموذج التعديل إذا كان هناك بيانات للتعديل */}
       {editFormData && (
-        <div className="edit-form-overlay">
-          <div className="edit-form">
-            <h3>تعديل العقار</h3>
-
-            {/* حقول النموذج */}
-            <input
-              type="text"
-              name="title"
-              value={editFormData.title || ""}
-              onChange={handleChange}
-              placeholder="العنوان"
-            />
-            <input
-              type="text"
-              name="type"
-              value={editFormData.type || ""}
-              onChange={handleChange}
-              placeholder="النوع"
-            />
-            <input
-              type="text"
-              name="subcategory"
-              value={editFormData.subcategory || ""}
-              onChange={handleChange}
-              placeholder="الفئة الفرعية"
-            />
-            <input
-              type="text"
-              name="city"
-              value={editFormData.city || ""}
-              onChange={handleChange}
-              placeholder="المدينة"
-            />
-            <input
-              type="number"
-              name="price"
-              value={editFormData.price || ""}
-              onChange={handleChange}
-              placeholder="السعر"
-            />
-            <input
-              type="number"
-              name="rooms"
-              value={editFormData.rooms || ""}
-              onChange={handleChange}
-              placeholder="عدد الغرف"
-            />
-            <input
-              type="number"
-              name="bathrooms"
-              value={editFormData.bathrooms || ""}
-              onChange={handleChange}
-              placeholder="عدد الحمامات"
-            />
-            <textarea
-              name="description"
-              value={editFormData.description || ""}
-              onChange={handleChange}
-              placeholder="الوصف"
-            />
-            <input
-              type="number"
-              name="latitude"
-              value={editFormData.latitude || ""}
-              onChange={handleChange}
-              placeholder="خط العرض"
-            />
-            <input
-              type="number"
-              name="longitude"
-              value={editFormData.longitude || ""}
-              onChange={handleChange}
-              placeholder="خط الطول"
-            />
-            <input
-              type="number"
-              name="area"
-              value={editFormData.area || ""}
-              onChange={handleChange}
-              placeholder="المساحة"
-            />
-            <input
-              type="text"
-              name="rent_type"
-              value={editFormData.rent_type || ""}
-              onChange={handleChange}
-              placeholder="نوع الإيجار"
-            />
-
-            {/* زر الحفظ والإلغاء */}
-            <button onClick={handleSave} className="save-btn">
-              حفظ
-            </button>
-            <button onClick={() => setEditFormData(null)} className="cancel-btn">
-              إلغاء
-            </button>
-          </div>
-        </div>
+        <EditPropertyForm
+          editFormData={editFormData}
+          handleChange={handleChange}
+          handleSave={handleSave}
+          cancelEdit={() => setEditFormData(null)}
+        />
       )}
 
       {/* قائمة العقارات */}

@@ -135,9 +135,9 @@
     
         const response = await fetch(`${BASE_URL}/realStates/${propertyId}`, {
           method: "PUT", // نوع الطلب هو PUT
-          headers: {
-            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
-          },
+          // headers: {
+          //   Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
+          // },
           body: formData, // استخدام FormData بدلاً من JSON
         });
     
