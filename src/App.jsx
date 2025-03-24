@@ -21,8 +21,8 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/realEstate" element={<RealEstate />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/AddProperty" element={<AddProperty />} />
       </Routes>
       {!hideNavBar && <Footer />}
