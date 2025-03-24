@@ -10,6 +10,7 @@ import { getPropertyById, sendViewRequest } from '../../api/RealeStateApi'; // �
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import QRCode from "react-qr-code";
+import { BASE_URL} from '../../api/api'
 
 const PropertyDetails = () => {
   const { id } = useParams(); // استخراج الـ id من الرابط
@@ -108,9 +109,9 @@ const PropertyDetails = () => {
     return <h2 className="text-center">العقار غير موجود</h2>;
   }
 
-  const images = property.images.map((img) => ({
-    original: img,
-    thumbnail: img,
+  const images = property.images.map(imagePath => ({
+    original: `${BASE_URL}${imagePath}`, // المسار الكامل للصورة الأصلية
+    thumbnail: `${BASE_URL}${imagePath}`, // يمكن استخدام نفس المسار كصورة مصغرة
   }));
 
   const fadeInUp = {
@@ -145,7 +146,7 @@ const PropertyDetails = () => {
             onClick={() => window.open(property.video, "_blank")}
           >
             <img
-              src={property.images[0]}
+              src={`${BASE_URL}${property.images[0]}`}
               alt="Video Thumbnail"
               className="w-100 h-100 object-fit-cover"
             />

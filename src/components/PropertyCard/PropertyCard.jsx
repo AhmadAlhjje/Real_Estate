@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome, FaHeart } from "react-icons/fa";
+import { BASE_URL} from '../../api/api'
 
 const PropertyCard = ({ property }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -15,7 +16,7 @@ const PropertyCard = ({ property }) => {
       <div className="card shadow-sm border-0 rounded-4 overflow-hidden">
         <div className="position-relative">
           <img 
-            src={property.images[0]} 
+            src={`${BASE_URL}${property.images[0]}`} 
             alt={property.title} 
             className="card-img-top"
             style={{ height: "200px", objectFit: "cover" }} 
