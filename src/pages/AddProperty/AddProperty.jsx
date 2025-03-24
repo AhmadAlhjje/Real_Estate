@@ -183,7 +183,16 @@ const AddProperty = () => {
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>نوع العقار داخل التصنيف</Form.Label>
-              <Form.Control type="text" name="category" value={formData.category} onChange={handleChange} required />
+              <Form.Select name="category" value={formData.category} onChange={handleChange} required>
+                <option value="شقة">شقة</option>
+                <option value="منزل">منزل</option>
+                <option value="قصر">قصر</option>
+                <option value="فيلا">فيلا</option>
+                <option value="مكتب">مكتب</option>
+                <option value="عيادة">عيادة</option>
+                <option value="متجر">متجر</option>
+                <option value="مطعم">مطعم</option>
+              </Form.Select>
             </Form.Group>
           </Col>
           <Col md={6}>

@@ -3,6 +3,7 @@ import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { fetchUserProperties, deleteProperty, updateProperty } from "../../api/RealeStateApi";
 import { getUserIdFromToken } from "../../api/api";
 import EditPropertyForm from "../../components/EditPropertyForm/EditPropertyForm"; 
+import { BASE_URL} from '../../api/api'
 import "./PropertyList.css";
 
 const PropertyList = () => {
@@ -89,11 +90,8 @@ const PropertyList = () => {
         }
       }
 
-      console.log("Sending Data:", Object.fromEntries(formData)); // فحص البيانات المرسلة
-
       // إرسال البيانات المعدلة إلى الـ API
       const updatedProperty = await updateProperty(editFormData.id, Object.fromEntries(formData));
-      console.log("Server Response:", updatedProperty); // فحص الاستجابة من الخادم
 
       // تحديث قائمة العقارات
       setProperties((prevProperties) =>
@@ -151,11 +149,12 @@ const PropertyList = () => {
                 property.images.trim() !== "" &&
                 Array.isArray(JSON.parse(property.images)) &&
                 JSON.parse(property.images).length > 0
-                  ? JSON.parse(property.images)[0]
+                  ? `${BASE_URL}${JSON.parse(property.images)[0]}`
                   : "/default-image.jpg" // صورة افتراضية إذا لم تكن هناك صور
               }
               alt={property.title}
               className="property-image"
+              style={{ height: "200px", objectFit: "cover" }}
             />
             <div className="property-details">
               <h5>{property.title}</h5>
