@@ -1,6 +1,7 @@
+/* استيراد خط */
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-/* ✅ تنسيق الفلتر الرئيسي */
+/*  تنسيق الفلتر الرئيسي */
 .property-filter {
     background: #f8f9fa;
     padding: 20px;
@@ -12,7 +13,7 @@
     text-align: center;
 }
 
-/* ✅ شريط اختيار نوع العقار */
+/*  شريط اختيار نوع العقار */
 .property-type-buttons {
     display: flex;
     justify-content: center;
@@ -32,7 +33,7 @@
     font-weight: bold;
 }
 
-/* ✅ تنسيق الفلاتر */
+/*  تنسيق الفلاتر */
 .filters-row {
     display: flex;
     gap: 15px;
@@ -41,7 +42,7 @@
     margin-bottom: 20px;
 }
 
-/* ✅ تصميم القوائم المنسدلة */
+/* تنسيق فلتر المدينة */
 .filter-select {
     flex: 1;
     padding: 12px;
@@ -57,7 +58,23 @@
     border-color: #27ae60;
 }
 
-/* ✅ نطاق السعر */
+/*  تصميم القوائم المنسدلة */
+.filter-select {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 18px;
+    min-width: 180px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+.filter-select:hover {
+    border-color: #27ae60;
+}
+
+/*  نطاق السعر */
 .price-range {
     display: flex;
     gap: 15px;
@@ -78,7 +95,7 @@
     border-color: #27ae60;
 }
 
-/* ✅ زر البحث */
+/*  زر البحث */
 .search-button {
     width: 100%;
     max-width: 400px;
@@ -98,7 +115,7 @@
     transform: scale(1.05);
 }
 
-/* ✅ تنسيق عرض العقارات */
+/*  تنسيق عرض العقارات */
 .property-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* عرض 3 عقارات في السطر */
@@ -119,32 +136,16 @@
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ إذا كانت شاشة أصغر من 768px، عرض العقارات بشكل عمودي */
+/*  إذا كانت شاشة أصغر من 768px، عرض العقارات بشكل عمودي */
 @media (max-width: 768px) {
     .property-cards {
         grid-template-columns: repeat(2, 1fr); /* عرض عقارين في السطر */
     }
 }
 
-/* ✅ إذا كانت شاشة أصغر من 480px، عرض العقار الواحد في السطر */
+/*  إذا كانت شاشة أصغر من 480px، عرض العقار الواحد في السطر */
 @media (max-width: 480px) {
     .property-cards {
         grid-template-columns: 1fr; /* عرض عقار واحد في السطر */
     }
-}
-
-/* تنسيق فلتر المدينة */
-.filter-select {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    font-size: 18px;
-    min-width: 180px;
-    background-color: #fff;
-    transition: 0.3s;
-}
-
-.filter-select:hover {
-    border-color: #27ae60;
 }
