@@ -115,3 +115,40 @@
         throw error;
       }
     };
+
+
+    // دالة لتعديل عقار بناءً على معرفه
+    export const updateProperty = async (propertyId, updatedData) => {
+      try {
+        const token = localStorage.getItem("token"); // استخراج التوكن من التخزين المحلي
+    
+        if (!token) {
+          throw new Error("يجب تسجيل الدخول أولاً."); // التحقق من وجود التوكن
+        }
+    
+        const formData = new FormData();
+    
+        // إضافة الحقول إلى formData
+        for (const key in updatedData) {
+          formData.append(key, updatedData[key]);
+        }
+    
+        const response = await fetch(`${BASE_URL}/realStates/${propertyId}`, {
+          method: "PUT", // نوع الطلب هو PUT
+          headers: {
+            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
+          },
+          body: formData, // استخدام FormData بدلاً من JSON
+        });
+    
+        if (!response.ok) {
+          const errorData = await response.json(); // استخراج رسالة الخطأ من الخادم
+          throw new Error(errorData.message || "حدث خطأ أثناء تعديل العقار.");
+        }
+    
+        return response.json(); // إرجاع استجابة الخادم إذا كانت ناجحة
+      } catch (error) {
+        console.error("خطأ في تعديل العقار:", error);
+        throw error; // إعادة رمي الخطأ ليتم التعامل معه في المكون
+      }
+    };
