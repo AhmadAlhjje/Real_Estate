@@ -8,8 +8,6 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PropertyDetails from './pages/PropertyDetails/PropertyDetails';
 import AddProperty from './pages/AddProperty/AddProperty';
-// import A from './pages/A/A';
-// import MapComponent from './components/MapComponent/MapComponent';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
@@ -26,8 +24,6 @@ function AppContent() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/AddProperty" element={<AddProperty />} />
-        {/* <Route path="/a" element={<A />} /> */}
-        {/* <Route path="/MapComponent" element={<MapComponent />} /> */}
       </Routes>
       {!hideNavBar && <Footer />}
     </>
