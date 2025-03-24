@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import "./PropertyList.css";
-import { fetchUserProperties } from "../../api/RealeStateApi";
+import { fetchUserProperties, deleteProperty } from "../../api/RealeStateApi"; // استيراد الدوال الجديدة
 import { getUserIdFromToken } from "../../api/api";
 
 const PropertyList = () => {
@@ -18,15 +18,13 @@ const PropertyList = () => {
         if (!userId) {
           setError("يجب تسجيل الدخول أولاً.");
           setLoading(false);
-          console.log(userId)
           return;
         }
 
         const data = await fetchUserProperties(userId); // جلب العقارات الخاصة بالمستخدم
         setProperties(data);
-      // eslint-disable-next-line no-unused-vars
       } catch (err) {
-        setError("حدث خطأ أثناء جلب بيانات العقارات.");
+        setError(err.message || "حدث خطأ أثناء جلب بيانات العقارات.");
       } finally {
         setLoading(false);
       }
@@ -35,8 +33,15 @@ const PropertyList = () => {
   }, []);
 
   // دالة حذف العقار
-  const handleDelete = (id) => {
-    setProperties(properties.filter((property) => property.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      if (window.confirm("هل أنت متأكد من أنك تريد حذف هذا العقار؟")) {
+        await deleteProperty(id); // استدعاء دالة الحذف من API
+        setProperties(properties.filter((property) => property.id !== id)); // تحديث القائمة بعد الحذف
+      }
+    } catch (err) {
+      setError(err.message || "حدث خطأ أثناء حذف العقار.");
+    }
   };
 
   // عرض مؤشر التحميل إذا كانت البيانات قيد التحميل

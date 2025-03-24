@@ -90,3 +90,28 @@
         throw error;
       }
     };
+
+
+    // دالة لحذف عقار بناءً على معرفه
+    export const deleteProperty = async (propertyId) => {
+      try {
+        // const token = localStorage.getItem("token"); // استخراج التوكن من التخزين المحلي
+    
+        const response = await fetch(`${BASE_URL}/realStates/${propertyId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error("حدث خطأ أثناء حذف العقار.");
+        }
+    
+        return response.json();
+      } catch (error) {
+        console.error("خطأ في حذف العقار:", error);
+        throw error;
+      }
+    };
