@@ -1,43 +1,41 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // استيراد useNavigate
-import "./Register.css"; // ملف التنسيقات المخصصة
+import { useNavigate } from "react-router-dom"; 
 import { FaUser, FaLock, FaPhone, FaWhatsapp } from "react-icons/fa";
-import { registerUser, registerAdmin } from "../../api/UserApi"; // استيراد دوال التسجيل
+import { registerUser, registerAdmin } from "../../api/UserApi"; 
+import "./Register.css";
 
 const Register = () => {
-  const navigate = useNavigate(); // إنشاء كائن التنقل
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     phone: "",
     whatsapp: "",
-    role: "user", // القيمة الافتراضية هي "مستخدم"
+    role: "user", 
   });
-
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // تابع لتحديث قيم النموذج عند تغييرها من قبل المستخدم
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // تابع للتعامل مع إرسال النموذج
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(null);
+    setError(null); // إعادة تعيين رسالة الخطأ
+    setSuccess(null); // إعادة تعيين رسالة النجاح
 
     try {
       let response;
-
+      // التحقق من نوع الحساب (مستخدم عادي أو مسؤول)
       if (formData.role === "user") {
-        // تسجيل المستخدم العادي
         response = await registerUser(formData);
       } else if (formData.role === "admin") {
-        // تسجيل المسؤول
         response = await registerAdmin(formData);
       }
-
       if (response) {
         setSuccess("تم التسجيل بنجاح! سيتم نقلك إلى صفحة تسجيل الدخول...");
         setTimeout(() => {
@@ -56,11 +54,13 @@ const Register = () => {
       <div className="register-box shadow-lg">
         <h2 className="text-center mb-4">إنشاء حساب جديد</h2>
 
+        {/* عرض رسالة الخطأ إن وجدت */}
         {error && <div className="alert alert-danger">{error}</div>}
+        {/* عرض رسالة النجاح إن وجدت */}
         {success && <div className="alert alert-success">{success}</div>}
 
         <form onSubmit={handleSubmit}>
-          {/* اسم المستخدم */}
+          {/* حقل اسم المستخدم */}
           <div className="form-group">
             <label>اسم المستخدم</label>
             <div className="input-group">
@@ -77,7 +77,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* كلمة المرور */}
+          {/* حقل كلمة المرور */}
           <div className="form-group">
             <label>كلمة المرور</label>
             <div className="input-group">
@@ -94,7 +94,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* رقم الهاتف */}
+          {/* حقل رقم الهاتف */}
           <div className="form-group">
             <label>رقم الهاتف</label>
             <div className="input-group">
@@ -111,7 +111,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* رقم الواتساب */}
+          {/* حقل رقم الواتساب */}
           <div className="form-group">
             <label>رقم الواتساب</label>
             <div className="input-group">
@@ -128,7 +128,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* اختيار نوع الحساب */}
+          {/* اختيار نوع الحساب (مستخدم عادي أو مسؤول) */}
           <div className="form-group">
             <label>نوع الحساب</label>
             <div className="d-flex gap-3">
@@ -159,7 +159,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* زر التسجيل */}
+          {/* زر التسجيل لإرسال النموذج */}
           <button type="submit" className="btn btn-primary w-100 mt-3">تسجيل</button>
         </form>
       </div>
