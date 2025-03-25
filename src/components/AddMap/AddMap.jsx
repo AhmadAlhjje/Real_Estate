@@ -1,7 +1,6 @@
 import { MapContainer, TileLayer} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import LocationMarker from "../LocationMarker/LocationMarker"
-
+import "leaflet/dist/leaflet.css";
 
 // مكون الخريطة
 const AddMap = ({ onLocationSelect }) => {

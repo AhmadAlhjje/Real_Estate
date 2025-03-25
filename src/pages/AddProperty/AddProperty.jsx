@@ -1,63 +1,68 @@
-import React, { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react"; 
+import { Form, Button, Container, Row, Col } from "react-bootstrap"; 
 import MapComponent from "../../components/AddMap/AddMap";
-import "bootstrap/dist/css/bootstrap.rtl.min.css";
-import { addRealEstate } from "../../api/RealeStateApi";
+import "bootstrap/dist/css/bootstrap.rtl.min.css"; 
+import { addRealEstate } from "../../api/RealeStateApi"; 
 import { getUserIdFromToken } from "../../api/api";
 
 const AddProperty = () => {
+
+  // حالة لتخزين بيانات النموذج الخاص بإضافة العقار
   const [formData, setFormData] = useState({
-    title: "",
-    type: "بيع",
-    category: "شقة",
+    title: "", 
+    type: "بيع", 
+    category: "شقة", 
     city: "",
-    area: "",
-    price: "",
-    rooms: "",
-    bathrooms: "",
-    rentType: "شهري",
-    images: [],
-    video: null,
-    description: "",
-    location: null,
+    area: "", 
+    price: "", 
+    rooms: "", 
+    bathrooms: "", 
+    rentType: "شهري", 
+    images: [], 
+    video: null, 
+    description: "", 
+    location: null, 
   });
 
-  const [previewImages, setPreviewImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]); // حالة لمعاينة الصور المرفوعة
 
+  // دالة لتحديث الحقول النصية في النموذج
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); 
   };
 
+  // دالة لمعالجة رفع الملفات (صور وفيديو)
   const handleFileChange = (e) => {
     const { name, files } = e.target;
 
     if (name === "images") {
-      const imagesArray = Array.from(files);
-      setFormData({ ...formData, images: imagesArray });
+      const imagesArray = Array.from(files); // تحويل الصور إلى مصفوفة
+      setFormData({ ...formData, images: imagesArray }); // تحديث حالة الصور
 
       // عرض معاينة الصور
       const previews = [];
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          previews.push(reader.result);
+          previews.push(reader.result); // إضافة الصورة إلى قائمة المعاينات
           setPreviewImages(previews);
         };
-        reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(files[i]); // قراءة الملف كـ Data URL
       }
     } else if (name === "video") {
-      setFormData({ ...formData, video: files[0] });
+      setFormData({ ...formData, video: files[0] }); // تحديث حالة الفيديو
     }
   };
 
+  // دالة لتحديد الموقع الجغرافي للعقار
   const handleLocationSelect = (location) => {
-    setFormData({ ...formData, location });
+    setFormData({ ...formData, location }); // تحديث الموقع الجغرافي
   };
 
-
+  // دالة لإرسال البيانات إلى الـ API
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
     // التحقق من صحة البيانات
     if (
@@ -78,14 +83,14 @@ const AddProperty = () => {
       return;
     }
 
-    // الحصول على owner_id من التوكن
+    // الحصول على معرّف المالك من التوكن
     const ownerId = getUserIdFromToken();
     if (!ownerId) {
       alert("حدث خطأ أثناء استخراج معرف المستخدم. يرجى تسجيل الدخول مرة أخرى.");
       return;
     }
 
-    // إعداد FormData لإرسال البيانات
+    // إعداد بيانات النموذج لإرسالها إلى الـ API
     const formDataToSend = new FormData();
     formDataToSend.append("title", formData.title);
     formDataToSend.append("type", formData.type);
@@ -101,29 +106,22 @@ const AddProperty = () => {
     }
 
     formData.images.forEach((image) => {
-      formDataToSend.append("images", image);
+      formDataToSend.append("images", image); // إضافة كل صورة إلى البيانات
     });
 
     if (formData.video) {
-      formDataToSend.append("video", formData.video);
+      formDataToSend.append("video", formData.video); // إضافة الفيديو إذا كان موجودًا
     }
 
     formDataToSend.append("description", formData.description);
-
     if (formData.location) {
-      formDataToSend.append("latitude", formData.location.lat);
-      formDataToSend.append("longitude", formData.location.lng);
+      formDataToSend.append("latitude", formData.location.lat); // إضافة خط العرض
+      formDataToSend.append("longitude", formData.location.lng); // إضافة خط الطول
     }
 
-    // إضافة owner_id إلى FormData
-    formDataToSend.append("owner_id", ownerId);
+    formDataToSend.append("owner_id", ownerId); // إضافة معرّف المالك
 
     try {
-      // طباعة البيانات للتحقق
-      for (let [key, value] of formDataToSend.entries()) {
-        console.log(key, value);
-      }
-
       // إرسال البيانات إلى الـ API
       const response = await addRealEstate(formDataToSend);
       console.log("تمت إضافة العقار بنجاح:", response);
@@ -134,33 +132,45 @@ const AddProperty = () => {
     }
   };
 
+  // دالة لإزالة صورة من القائمة
   const removeImage = (index) => {
     const updatedImages = [...formData.images];
-    updatedImages.splice(index, 1);
+    updatedImages.splice(index, 1); // حذف الصورة من القائمة
     setFormData({ ...formData, images: updatedImages });
-    setPreviewImages(previewImages.filter((_, i) => i !== index));
+    setPreviewImages(previewImages.filter((_, i) => i !== index)); // تحديث معاينة الصور
   };
 
+  // دالة لإزالة الفيديو
   const removeVideo = () => {
-    setFormData({ ...formData, video: null });
+    setFormData({ ...formData, video: null }); // إزالة الفيديو من الحالة
   };
 
   return (
-    <Container dir="rtl" className="mb-4">
-      <h2 className="my-4 text-start">إضافة عقار</h2>
-      <Form onSubmit={handleSubmit}>
+    <Container dir="rtl" className="mb-4"> 
+      <h2 className="my-4 text-start">إضافة عقار</h2> 
+      <Form onSubmit={handleSubmit}> 
         {/* الحقول النصية */}
         <Row>
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>عنوان العقار</Form.Label>
-              <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} required />
+              <Form.Control
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>نوع العقار</Form.Label>
-              <Form.Select name="type" value={formData.type} onChange={handleChange}>
+              <Form.Select
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+              >
                 <option value="بيع">بيع</option>
                 <option value="إيجار">إيجار</option>
                 <option value="مشروع">مشروع</option>
@@ -171,7 +181,11 @@ const AddProperty = () => {
             <Col md={6}>
               <Form.Group className="mb-3 text-start">
                 <Form.Label>نوع الإيجار</Form.Label>
-                <Form.Select name="rentType" value={formData.rentType} onChange={handleChange}>
+                <Form.Select
+                  name="rentType"
+                  value={formData.rentType}
+                  onChange={handleChange}
+                >
                   <option value="شهري">شهري</option>
                   <option value="سنوي">سنوي</option>
                 </Form.Select>
@@ -183,7 +197,12 @@ const AddProperty = () => {
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>نوع العقار داخل التصنيف</Form.Label>
-              <Form.Select name="category" value={formData.category} onChange={handleChange} required>
+              <Form.Select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+              >
                 <option value="شقة">شقة</option>
                 <option value="منزل">منزل</option>
                 <option value="قصر">قصر</option>
@@ -198,7 +217,13 @@ const AddProperty = () => {
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>المدينة</Form.Label>
-              <Form.Control type="text" name="city" value={formData.city} onChange={handleChange} required />
+              <Form.Control
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
         </Row>
@@ -206,19 +231,37 @@ const AddProperty = () => {
           <Col md={4}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>المساحة (م²)</Form.Label>
-              <Form.Control type="number" name="area" value={formData.area} onChange={handleChange} required />
+              <Form.Control
+                type="number"
+                name="area"
+                value={formData.area}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
           <Col md={4}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>السعر</Form.Label>
-              <Form.Control type="number" name="price" value={formData.price} onChange={handleChange} required />
+              <Form.Control
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
           <Col md={4}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>عدد الغرف</Form.Label>
-              <Form.Control type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
+              <Form.Control
+                type="number"
+                name="rooms"
+                value={formData.rooms}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
         </Row>
@@ -226,14 +269,28 @@ const AddProperty = () => {
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>عدد الحمامات</Form.Label>
-              <Form.Control type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} required />
+              <Form.Control
+                type="number"
+                name="bathrooms"
+                value={formData.bathrooms}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
         </Row>
+
         {/* رفع الصور والفيديو */}
         <Form.Group className="mb-3 text-start">
           <Form.Label>إضافة صور</Form.Label>
-          <Form.Control type="file" name="images" multiple accept="image/*" onChange={handleFileChange} required />
+          <Form.Control
+            type="file"
+            name="images"
+            multiple
+            accept="image/*"
+            onChange={handleFileChange}
+            required
+          />
           <div style={{ marginTop: "10px" }}>
             {previewImages.map((src, index) => (
               <div key={index} style={{ display: "inline-block", position: "relative" }}>
@@ -261,25 +318,42 @@ const AddProperty = () => {
         </Form.Group>
         <Form.Group className="mb-3 text-start">
           <Form.Label>إضافة فيديو</Form.Label>
-          <Form.Control type="file" name="video" accept="video/*" onChange={handleFileChange} />
+          <Form.Control
+            type="file"
+            name="video"
+            accept="video/*"
+            onChange={handleFileChange}
+          />
           {formData.video && (
             <div style={{ marginTop: "10px" }}>
               <p>{formData.video.name}</p>
-              <button type="button" onClick={removeVideo} style={{ background: "red", color: "white", border: "none", padding: "5px" }}>
+              <button
+                type="button"
+                onClick={removeVideo}
+                style={{ background: "red", color: "white", border: "none", padding: "5px" }}
+              >
                 إزالة الفيديو
               </button>
             </div>
           )}
         </Form.Group>
+
         {/* الوصف والموقع */}
         <Form.Group className="mb-3 text-start">
           <Form.Label>وصف العقار</Form.Label>
-          <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} rows={3} />
+          <Form.Control
+            as="textarea"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            rows={3}
+          />
         </Form.Group>
         <Form.Group className="mb-3 text-start">
           <Form.Label>تحديد موقع العقار</Form.Label>
           <MapComponent onLocationSelect={handleLocationSelect} />
         </Form.Group>
+
         {/* زر الإرسال */}
         <Button variant="primary" type="submit">إضافة العقار</Button>
       </Form>

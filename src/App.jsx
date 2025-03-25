@@ -23,7 +23,7 @@ function AppContent() {
         <Route path="/realEstate" element={<RealEstate />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/AddProperty" element={<AddProperty />} />
+        {/* <Route path="/AddProperty" element={<AddProperty />} /> */}
       </Routes>
       {!hideNavBar && <Footer />}
     </>
