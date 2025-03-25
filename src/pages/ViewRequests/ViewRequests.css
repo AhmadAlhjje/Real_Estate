@@ -1,121 +1,136 @@
-/* تنسيقات عامة */
+/* التنسيقات العامة للصفحة */
 .view-requests-container {
-    font-family: "Poppins", sans-serif;
-    color: #333;
-    padding: 20px;
-    background: #f8f9fa; /* خلفية ناعمة */
-  }
-  
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  padding: 20px;
+  background: #f8f9fa; 
+}
+
+/* تصميم العنوان الرئيسي للقسم */
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* خط تحت العنوان */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #007bff;
+  margin: 10px auto 0;
+  border-radius: 5px;
+}
+
+/* تصميم الحاوية الرئيسية لقائمة الطلبات */
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* تصميم البطاقة الخاصة بكل طلب */
+.request-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* تأثير عند التحويم على البطاقة */
+.request-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* تصميم قسم تفاصيل العقار داخل البطاقة */
+.property-details,
+.user-details,
+.message-box {
+  margin-bottom: 20px;
+}
+
+/* عنوان تفاصيل العقار */
+.property-details h5 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* نص تفاصيل العقار والمستخدم */
+.property-details p,
+.user-details p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+/* أيقونات تفاصيل العقار */
+.property-details p svg {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+/* أيقونات تفاصيل المستخدم */
+.user-details p svg {
+  margin-right: 10px;
+  color: #28a745; 
+}
+
+/* عنوان صندوق الرسالة */
+.message-box strong {
+  font-size: 1.1rem;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* محتوى الرسالة */
+.message-box p {
+  font-size: 1rem;
+  color: #666;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  min-height: 80px;
+  word-wrap: break-word;
+}
+
+/* رسالة حالة عدم وجود طلبات */
+.no-content {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #d9534f;
+  margin-top: 50px;
+}
+
+/* أيقونة تحذير قبل النص */
+.no-content::before {
+  content: "⚠️";
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* تعديلات على التنسيقات للشاشات الصغيرة */
+@media (max-width: 768px) {
   .section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #007bff;
-    text-align: center;
-    margin-bottom: 40px;
-    position: relative;
-  }
-  
-  .section-title::after {
-    content: "";
-    display: block;
-    width: 80px;
-    height: 3px;
-    background: #007bff;
-    margin: 10px auto 0;
-    border-radius: 5px;
-  }
-  
-  .requests-list {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
-  
-  .request-card {
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding: 25px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  
-  .request-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  .property-details,
-  .user-details,
-  .message-box {
-    margin-bottom: 20px;
-  }
-  
-  .property-details h5 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-  
-  .property-details p,
-  .user-details p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-    line-height: 1.6;
-  }
-  
-  .property-details p svg {
-    margin-right: 10px;
-    color: #007bff;
-  }
-  
-  .user-details p svg {
-    margin-right: 10px;
-    color: #28a745; /* لون مختلف للأيقونات */
-  }
-  
-  .message-box strong {
-    font-size: 1.1rem;
-    color: #333;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .message-box p {
-    font-size: 1rem;
-    color: #666;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    min-height: 80px;
-    word-wrap: break-word;
-  }
-  
-  .no-content {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #d9534f;
-    margin-top: 50px;
-  }
-  
-  .no-content::before {
-    content: "⚠️";
-    display: block;
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  @media (max-width: 768px) {
-    .section-title {
       font-size: 1.8rem;
-    }
-  
-    .property-details h5 {
-      font-size: 1.3rem;
-    }
-  
-    .request-card {
-      padding: 20px;
-    }
   }
+
+  .property-details h5 {
+      font-size: 1.3rem;
+  }
+
+  .request-card {
+      padding: 20px;
+  }
+}

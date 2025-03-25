@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./ViewRequests.css"; // ملف التنسيقات
 import { FaUser, FaPhone, FaWhatsapp } from "react-icons/fa";
 import { fetchUserRequests } from "../../api/RequestsApi";
+import "./ViewRequests.css";
 
 const ViewRequests = () => {
   const [requests, setRequests] = useState([]); // لتخزين بيانات الطلبات
@@ -12,7 +12,7 @@ const ViewRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const data = await fetchUserRequests(); // استخدام دالة الـ API
+        const data = await fetchUserRequests(); 
         setRequests(data);
       // eslint-disable-next-line no-unused-vars
       } catch (err) {
@@ -25,17 +25,14 @@ const ViewRequests = () => {
     fetchRequests();
   }, []);
 
-  // عرض مؤشر التحميل إذا كانت البيانات قيد التحميل
   if (loading) {
     return <p className="no-content">جاري التحميل...</p>;
   }
 
-  // عرض رسالة الخطأ إذا حدث خطأ أثناء جلب البيانات
   if (error) {
     return <p className="no-content text-danger">{error}</p>;
   }
 
-  // إذا لم يتم العثور على طلبات مشاهدة
   if (requests.length === 0) {
     return <p className="no-content">لا توجد طلبات مشاهدة بعد.</p>;
   }

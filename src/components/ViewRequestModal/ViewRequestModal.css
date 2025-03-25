@@ -1,0 +1,80 @@
+/* ---------- نموذج طلب المشاهدة ---------- */
+/* الخلفية المظلمة للنموذج */
+.view-request-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* محتوى النموذج */
+  .view-request-modal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* عنوان النموذج */
+  .view-request-modal .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+  
+  /* حقول الإدخال العامة */
+  .view-request-modal .form-control {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* الأزرار العامة */
+  .view-request-modal .btn {
+    padding: 8px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  
+  /* زر إلغاء الرمادي */
+  .view-request-modal .btn-secondary {
+    background: #6c757d;
+    border: none;
+  }
+  
+  /* زر إرسال الأخضر */
+  .view-request-modal .btn-success {
+    background: #28a745;
+    border: none;
+  }
+  
+  /* ---------- تنسيق حقل الرسالة ---------- */
+  /* حقل الرسالة */
+  .view-request-modal .form-control {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* منع تغيير حجم حقل النص وضبط الارتفاع */
+  .view-request-modal textarea.form-control {
+    resize: none; /* منع تغيير حجم النص يدويًا */
+    height: auto; /* ارتفاع تلقائي بناءً على عدد الأسطر */
+  }
+  
+  /* تأثير التركيز على حقل الرسالة */
+  .view-request-modal textarea.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }

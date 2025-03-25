@@ -22,3 +22,26 @@ export const fetchUserRequests = async () => {
       return [];
     }
   };
+
+     // دالة لإرسال طلب المشاهدة
+     export const sendViewRequest = async (requestData) => {
+      try {
+        const response = await fetch(`${BASE_URL}/requests`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to send request.");
+        }
+        const result = await response.json();
+        console.log("Request sent successfully:", result);
+        return true;
+      } catch (err) {
+        console.error("Error sending request:", err);
+        return false;
+      }
+    };

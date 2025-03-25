@@ -6,6 +6,7 @@ import { getPropertyById } from '../../api/RealeStateApi';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion"; 
 import "./PropertyDetails.css"; 
+import ViewRequestModal from "../../components/ViewRequestModal/ViewRequestModal";
 
 const PropertyDetails = () => {
   const { id } = useParams(); 
@@ -70,6 +71,9 @@ const PropertyDetails = () => {
 
       {/* القسم الثاني: تفاصيل العقار (الوصف، المعلومات الأساسية، الإحصائيات) */}
       <PropertyDetailsInfo property={property} />
+
+      {/* مكون طلب المشاهدة */}
+      <ViewRequestModal propertyId={id} />
     </div>
   );
 };
