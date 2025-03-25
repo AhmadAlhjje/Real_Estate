@@ -8,8 +8,8 @@ import "./PropertyList.css";
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]); // لتخزين بيانات العقارات
-  const [loading, setLoading] = useState(true); // لتحديد حالة التحميل
-  const [error, setError] = useState(null); // لتخزين رسالة الخطأ
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   const [editFormData, setEditFormData] = useState(null); // لتخزين بيانات النموذج الخاص بالتعديل
 
   // دالة لجلب بيانات العقارات عند تحميل المكون
@@ -84,7 +84,6 @@ const PropertyList = () => {
 
       // إضافة الحقول المعدلة فقط
       for (const key in editFormData) {
-        if (key === "images") continue; // تجاهل الصور
         if (editFormData[key] !== null && editFormData[key] !== undefined) {
           formData.append(key, editFormData[key]);
         }
@@ -102,8 +101,6 @@ const PropertyList = () => {
         )
       );
 
-      console.log("Updated Properties:", properties); // فحص البيانات المحدثة
-
       // إغلاق النموذج بعد الحفظ
       setEditFormData(null);
     } catch (err) {
@@ -111,17 +108,14 @@ const PropertyList = () => {
     }
   };
 
-  // عرض مؤشر التحميل إذا كانت البيانات قيد التحميل
   if (loading) {
     return <p className="no-content">جاري التحميل...</p>;
   }
 
-  // عرض رسالة الخطأ إذا حدث خطأ أثناء جلب البيانات
   if (error) {
     return <p className="no-content text-danger">{error}</p>;
   }
 
-  // إذا لم يتم العثور على عقارات
   if (properties.length === 0) {
     return <p className="no-content">لا توجد عقارات مضافة بعد.</p>;
   }
