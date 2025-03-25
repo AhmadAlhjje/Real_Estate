@@ -7,7 +7,7 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PropertyDetails from './pages/PropertyDetails/PropertyDetails';
-import AddProperty from './pages/AddProperty/AddProperty';
+// import AddProperty from './pages/AddProperty/AddProperty';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
