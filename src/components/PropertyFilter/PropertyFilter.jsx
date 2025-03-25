@@ -7,7 +7,6 @@ const PropertyFilter = ({ onFilterChange }) => {
   const [subcategory, setsubcategory] = useState("");
   const [rooms, setrooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
-  const [completionDate, setCompletionDate] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [city, setCity] = useState("");
 
@@ -18,7 +17,6 @@ const PropertyFilter = ({ onFilterChange }) => {
       subcategory,
       rooms,
       bathrooms,
-      completionDate,
       priceRange,
       city,
     });
@@ -58,37 +56,21 @@ const PropertyFilter = ({ onFilterChange }) => {
           <option value="قصر">قصر</option>
         </select>
 
-        {/* التحقق من نوع العقار لعرض الفئات المناسبة */}
-        {propertyType === "مشاريع" ? (
-          <>
-            {/* فلتر تاريخ الانتهاء الخاص بالمشاريع */}
-            <select className="filter-select" value={completionDate} onChange={(e) => setCompletionDate(e.target.value)}>
-              <option value="">تاريخ الانتهاء</option>
-              <option value="جاهز">جاهز</option>
-              <option value="2025">2025</option>
-              <option value="2026">2026</option>
-              <option value="2027">2027</option>
-            </select>
-          </>
-        ) : (
-          <>
-            {/* فلتر عدد الغرف */}
-            <select className="filter-select" value={rooms} onChange={(e) => setrooms(e.target.value)}>
-              <option value="">الغرف</option>
-              {[1, 2, 3, 4, 5, 6].map((num) => (
-                <option key={num} value={num}>{num}</option>
-              ))}
-            </select>
+        {/* فلتر عدد الغرف */}
+        <select className="filter-select" value={rooms} onChange={(e) => setrooms(e.target.value)}>
+          <option value="">الغرف</option>
+          {[1, 2, 3, 4, 5, 6].map((num) => (
+          <option key={num} value={num}>{num}</option>
+          ))}
+        </select>
 
-            {/* فلتر عدد الحمامات */}
-            <select className="filter-select" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)}>
-              <option value="">الحمامات</option>
-              {[1, 2, 3, 4].map((num) => (
-                <option key={num} value={num}>{num}</option>
-              ))}
-            </select>
-          </>
-        )}
+        {/* فلتر عدد الحمامات */}
+        <select className="filter-select" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)}>
+          <option value="">الحمامات</option>
+          {[1, 2, 3, 4].map((num) => (
+            <option key={num} value={num}>{num}</option>
+          ))}
+        </select>
 
         {/* فلتر النطاق السعري */}
         <div className="price-range">
