@@ -8,7 +8,7 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PropertyDetails from './pages/PropertyDetails/PropertyDetails';
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
-// import AddProperty from './pages/AddProperty/AddProperty';
+import Favorites from './pages/Favorites/Favorites';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
@@ -25,7 +25,7 @@ function AppContent() {
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<DashboardAdmin />} />
-        {/* <Route path="/AddProperty" element={<AddProperty />} /> */}
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
       {!hideNavBar && <Footer />}
     </>

@@ -32,8 +32,8 @@ const NavBar = () => {
     <>
       <nav className="navbar">
         <div className="NavBarIcons" style={{ display: "flex", justifyContent: "space-around", width: "100%" }}>
-          <Link to="/" className="navbar-logo">
-            <h1>عقارات</h1>
+          <Link to="/">
+            <h1 className="navbar-logo">عقارات</h1>
           </Link>
           
           {/* Home Button */}
@@ -53,12 +53,7 @@ const NavBar = () => {
           </button>
 
           {/* Add Property Button */}
-          <button className="nav-btn">
-            <Link to="/AddProperty" className="nav-icon-link">
-              <FaPlusCircle className="nav-icon" />
-              <span className="nav-text"> اضافة عقار</span>
-            </Link>
-          </button>
+         
 
           {/* User Button */}
           <button className="nav-btn" onClick={() => setUserMenuOpen(!userMenuOpen)}>
@@ -75,9 +70,16 @@ const NavBar = () => {
           <div className="user-dropdown">
             {username ? (
               // إذا كان هناك توكن، عرض خيار تسجيل الخروج
+             <>
               <button onClick={handleLogout} className="user-dropdown-item">
                 تسجيل الخروج
               </button>
+               <button className=" user-dropdown-item">
+               <Link to="/favorites" className=" user-dropdown-item">
+                المفضلة
+               </Link>
+             </button>
+             </>
             ) : (
               <>
                 <Link to="/login" className="user-dropdown-item">تسجيل الدخول</Link>
