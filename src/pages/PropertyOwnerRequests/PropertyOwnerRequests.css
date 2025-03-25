@@ -1,0 +1,76 @@
+/* App.css */
+body {
+    background-color: #f4f4f9; /* لون خلفية ناعم */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333; /* لون النص الرئيسي */
+  }
+  
+  .container {
+    max-width: 1200px; /* زيادة العرض ليتناسب مع شاشات أكبر */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #2c3e50; /* لون عنوان أنيق */
+    font-size: 2.5rem; /* حجم خط أكبر */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* ظل ناعم */
+  }
+  
+  .table {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ظل للجدول */
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .table thead {
+    background-color: #34495e; /* لون رأس الجدول داكن وأنيق */
+    color: #ffffff; /* نص أبيض */
+  }
+  
+  .table th,
+  .table td {
+    padding: 15px; /* زيادة المساحة الداخلية للخلايا */
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #ddd; /* حدود ناعمة بين الصفوف */
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f9f9f9; /* تأثير عند التحويم على الصف */
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger,
+  .bg-success{
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c0392b; /* لون زر الحذف عند التحويم */
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1rem; /* تصغير حجم العنوان على الشاشات الصغيرة */
+    }
+  
+    .table th,
+    .table td {
+      padding: 3px; /* تصغير المساحة الداخلية للخلايا */
+      font-size: 0.6rem; /* تصغير حجم النص */
+    }
+
+  }

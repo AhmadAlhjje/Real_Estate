@@ -1,0 +1,147 @@
+/* خلفية لوحة التحكم الرئيسية */
+.dashboard {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* محتوى لوحة التحكم */
+.dashboard-content {
+  flex-grow: 1;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 80%;
+}
+
+/* القائمة الجانبية للوحة التحكم */
+.dashboard-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 20%;
+  max-height: 100vh;
+  background: linear-gradient(135deg, #1f3b57, #2c4a6e);
+  padding: 25px;
+  position: sticky;
+  top: 0;
+  right: 0;
+  box-shadow: -4px 0px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* عنوان لوحة التحكم */
+.dashboard-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+/* تصميم الأزرار */
+.tab-btn {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* تأثير المقصوص (Cut-out Effect) للزر المختار */
+.tab-btn.active {
+  background: #ffffff;
+  color: #1f3b57;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* تأثير تحريك جميل عند تمرير الماوس */
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+/* زر التبديل في الشاشات الصغيرة */
+.menu-toggle {
+  display: none;
+  background: #1f3b57;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 22px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* تأثير جميل عند الضغط على زر القائمة */
+.menu-toggle:hover {
+  background: #2c4a6e;
+  transform: scale(1.1);
+}
+
+/* إخفاء لوحة التحكم في الشاشات الصغيرة افتراضيًا */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-menu {
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: linear-gradient(135deg, #1f3b57, #2c4a6e);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 99;
+  }
+
+  /* إظهار القائمة عند فتحها */
+  .dashboard-menu.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  /* زر التبديل يصبح ظاهرًا في الشاشات الصغيرة */
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* أنيميشن فتح القائمة */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -7,11 +7,12 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PropertyDetails from './pages/PropertyDetails/PropertyDetails';
+import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
 // import AddProperty from './pages/AddProperty/AddProperty';
 
 function AppContent() {
   const location = useLocation(); // الحصول على المسار الحالي
-  const hideNavBar = location.pathname === "/register" ||location.pathname === "/login" ||location.pathname === "/dashboard"; // التحقق إذا كان في صفحة التسجيل
+  const hideNavBar = location.pathname === "/register" ||location.pathname === "/login" ||location.pathname === "/dashboard" ||location.pathname === "/admin"; 
 
   return (
     <>
@@ -23,6 +24,7 @@ function AppContent() {
         <Route path="/realEstate" element={<RealEstate />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<DashboardAdmin />} />
         {/* <Route path="/AddProperty" element={<AddProperty />} /> */}
       </Routes>
       {!hideNavBar && <Footer />}
