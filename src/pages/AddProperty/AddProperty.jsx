@@ -173,7 +173,7 @@ const AddProperty = () => {
               >
                 <option value="بيع">بيع</option>
                 <option value="إيجار">إيجار</option>
-                <option value="مشروع">مشروع</option>
+                <option value="مشاريع">مشاريع</option>
               </Form.Select>
             </Form.Group>
           </Col>

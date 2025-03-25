@@ -18,7 +18,7 @@ const EditPropertyForm = ({ editFormData, handleChange, handleSave, cancelEdit }
           placeholder="ادخل اسم العقار"
         />
 
-        {/* نوع العقار (بيع، إيجار، مشروع) */}
+        {/* نوع العقار (بيع، إيجار، مشاريع) */}
         <label htmlFor="type">نوع العقار:</label>
         <select
           id="type"
@@ -29,7 +29,7 @@ const EditPropertyForm = ({ editFormData, handleChange, handleSave, cancelEdit }
           <option value="">اختر النوع</option>
           <option value="بيع">بيع</option>
           <option value="إيجار">إيجار</option>
-          <option value="مشروع">مشروع</option>
+          <option value="مشاريع">مشاريع</option>
         </select>
 
         {/* نوع الإيجار (يظهر فقط إذا كان النوع "إيجار") */}
