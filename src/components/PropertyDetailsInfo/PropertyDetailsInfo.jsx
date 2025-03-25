@@ -1,8 +1,9 @@
 import React from "react";
 import QRCode from "react-qr-code";
-// import "./PropertyDetails.css";
 
 const PropertyDetailsInfo = ({ property }) => {
+
+//الرابط الذي سيعرض في QR 
   const qrData = `http://localhost:5173/property/${property.id}`;
 
   return (
@@ -47,7 +48,7 @@ const PropertyDetailsInfo = ({ property }) => {
             <strong>تاريخ الإضافة:</strong>{" "}
             {new Date(property.addedDate).toLocaleDateString()}
           </li>
-          {/* إضافة رمز QR هنا */}
+          {/* إضافة رمز QR */}
           <li className="qr-item">
             <div className="qr-container">
               <p className="mb-2">رمز QR للعقار</p>
