@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaBuilding, FaPlusCircle, FaHome } from "react-icons/fa";
-import { jwtDecode } from 'jwt-decode'; // استخدم jwtDecode هنا
+import { jwtDecode } from 'jwt-decode';
 import "./NavBar.css";
 
 const NavBar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [username, setUsername] = useState(null);
-  const navigate = useNavigate(); // إضافة useNavigate للتوجيه عند تسجيل الخروج
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -36,7 +36,7 @@ const NavBar = () => {
             <h1 className="navbar-logo">عقارات</h1>
           </Link>
           
-          {/* Home Button */}
+          {/* زر الصفحة الرئيسية */}
           <button className="nav-btn">
             <Link to="/" className="nav-icon-link">
               <FaHome className="nav-icon" />
@@ -44,7 +44,7 @@ const NavBar = () => {
             </Link>
           </button>
 
-          {/* Real Estate Button */}
+          {/* زر العقارات */}
           <button className="nav-btn">
             <Link to="/realEstate" className="nav-icon-link">
               <FaBuilding className="nav-icon" />
@@ -52,14 +52,11 @@ const NavBar = () => {
             </Link>
           </button>
 
-          {/* Add Property Button */}
-         
-
-          {/* User Button */}
+          {/* User زر ال */}
           <button className="nav-btn" onClick={() => setUserMenuOpen(!userMenuOpen)}>
             <FaUser className="nav-icon" />
             {username ? (
-              <span className="nav-text">{username}</span> // عرض اسم المستخدم
+              <span className="nav-text">{username}</span> 
             ) : (
               <span className="nav-text">تسجيل</span> // عرض "تسجيل" إذا لم يكن هناك توكن
             )}
