@@ -1,10 +1,7 @@
 import React, { useState } from "react"; 
-// import PropertyList from "../PropertyList/PropertyList";
-// import AddProperty from "../AddProperty/AddProperty"; 
-// import ViewRequests from "../ViewRequests/ViewRequests";
-import "./DashboardAdmin.css"; 
 import PropertyOwner from "../propertyOwner/propertyOwner";
 import PropertyOwnerRequests from "../PropertyOwnerRequests/PropertyOwnerRequests";
+import "./DashboardAdmin.css"; 
 
 const DashboardAdmin = () => {
   // حالة لإدارة التبويب النشط (مثل "عرض العقارات"، "إضافة عقار"، أو "طلبات المراسلة")
