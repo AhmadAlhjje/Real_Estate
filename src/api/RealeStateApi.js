@@ -52,11 +52,10 @@
       try {
         const response = await fetch(`${BASE_URL}/realStates`, {
           method: "POST",
-          body: data, // البيانات المرسلة كـ FormData
+          body: data, 
         });
     
         if (!response.ok) {
-          // إذا كانت الاستجابة ليست ناجحة (مثل حالة 400 أو 500)
           const errorData = await response.json();
           throw new Error(errorData.error || "حدث خطأ أثناء إضافة العقار.");
         }
@@ -72,13 +71,10 @@
     // دالة لحذف عقار بناءً على معرفه
     export const deleteProperty = async (propertyId) => {
       try {
-        // const token = localStorage.getItem("token"); // استخراج التوكن من التخزين المحلي
-    
         const response = await fetch(`${BASE_URL}/realStates/${propertyId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
           },
         });
     
@@ -97,12 +93,11 @@
     // دالة لتعديل عقار بناءً على معرفه
     export const updateProperty = async (propertyId, updatedData) => {
       try {
-        const token = localStorage.getItem("token"); // استخراج التوكن من التخزين المحلي
+        const token = localStorage.getItem("token"); 
     
         if (!token) {
-          throw new Error("يجب تسجيل الدخول أولاً."); // التحقق من وجود التوكن
+          throw new Error("يجب تسجيل الدخول أولاً.");
         }
-    
         const formData = new FormData();
     
         // إضافة الحقول إلى formData
@@ -111,22 +106,22 @@
         }
     
         const response = await fetch(`${BASE_URL}/realStates/${propertyId}`, {
-          method: "PUT", // نوع الطلب هو PUT
+          method: "PUT",
           // headers: {
-          //   Authorization: `Bearer ${token}`, // إضافة التوكن إلى الرؤوس
+          //   Authorization: `Bearer ${token}`, 
           // },
-          body: formData, // استخدام FormData بدلاً من JSON
+          body: formData, 
         });
     
         if (!response.ok) {
-          const errorData = await response.json(); // استخراج رسالة الخطأ من الخادم
+          const errorData = await response.json();
           throw new Error(errorData.message || "حدث خطأ أثناء تعديل العقار.");
         }
     
-        return response.json(); // إرجاع استجابة الخادم إذا كانت ناجحة
+        return response.json(); 
       } catch (error) {
         console.error("خطأ في تعديل العقار:", error);
-        throw error; // إعادة رمي الخطأ ليتم التعامل معه في المكون
+        throw error;
       }
     };
 
