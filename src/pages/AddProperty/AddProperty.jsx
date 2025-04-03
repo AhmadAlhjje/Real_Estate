@@ -215,13 +215,18 @@ const AddProperty = () => {
           <Col md={6}>
             <Form.Group className="mb-3 text-start">
               <Form.Label>المدينة</Form.Label>
-              <Form.Control
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                required
-              />
+              <Form.Select
+               type="text"
+               name="city"
+               value={formData.city}
+               onChange={handleChange}
+               required
+              >
+                  <option value="حلب"> حلب </option>
+                  <option value="دمشق">دمشق </option>
+                  <option value="اللاذقية">اللاذقية </option>
+                  <option value="حمص">حمص </option>
+              </Form.Select>
             </Form.Group>
           </Col>
         </Row>
