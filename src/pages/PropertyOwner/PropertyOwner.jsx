@@ -1,20 +1,45 @@
-// App.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { fetchPropertyOwners, deletePropertyOwner } from "../../api/PropertyOwnerApi";
 import "./PropertyOwner.css";
 
 function PropertyOwner() {
-  // مصفوفة تجريبية تحتوي على بيانات أصحاب العقارات
-  const [propertyOwners, setPropertyOwners] = useState([
-    { id: 1, name: "أحمد علي", phone: "0599123456", whatsapp: "0599123456" },
-    { id: 2, name: "محمد خالد", phone: "0598765432", whatsapp: "0598765432" },
-    { id: 3, name: "سعيد عمر", phone: "0561234567", whatsapp: "0561234567" },
-  ]);
+  // حالة لإدارة قائمة أصحاب العقارات
+  const [propertyOwners, setPropertyOwners] = useState([]);
 
-  // دالة لحذف صاحب عقار من القائمة
-  const deleteOwner = (id) => {
-    const updatedOwners = propertyOwners.filter((owner) => owner.id !== id);
-    setPropertyOwners(updatedOwners);
+  // تابع لجلب بيانات أصحاب العقارات من الـ API عند تحميل الصفحة
+  useEffect(() => {
+    const getPropertyOwners = async () => {
+      try {
+        const owners = await fetchPropertyOwners();
+        // تصفية الأشخاص الذين لديهم isApproved === true
+        const approvedOwners = owners.filter((owner) => owner.isApproved === true);
+        setPropertyOwners(approvedOwners);
+      } catch (error) {
+        console.error("لم يتم جلب بيانات أصحاب العقارات.", error);
+      }
+    };
+    getPropertyOwners();
+  }, []);
+
+  // دالة لحذف صاحب عقار من القائمة وإرسال الطلب إلى الـ API
+  const handleDeleteOwner = async (id) => {
+    // طلب تأكيد الحذف من المستخدم
+    const isConfirmed = window.confirm("هل أنت متأكد أنك تريد حذف هذا العنصر؟");
+    if (!isConfirmed) {
+      return; // إذا لم يوافق المستخدم، لا تقم بشيء
+    }
+
+    try {
+      // إرسال طلب الحذف إلى الـ API
+      await deletePropertyOwner(id);
+
+      // تحديث القائمة بعد الحذف
+      const updatedOwners = propertyOwners.filter((owner) => owner.id !== id);
+      setPropertyOwners(updatedOwners);
+    } catch (error) {
+      console.error("حدث خطأ أثناء حذف صاحب العقار.", error);
+    }
   };
 
   return (
@@ -32,13 +57,13 @@ function PropertyOwner() {
         <tbody>
           {propertyOwners.map((owner) => (
             <tr key={owner.id}>
-              <td>{owner.name}</td>
+              <td>{owner.username}</td>
               <td>{owner.phone}</td>
               <td>{owner.whatsapp}</td>
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteOwner(owner.id)}
+                  onClick={() => handleDeleteOwner(owner.id)}
                 >
                   حذف
                 </button>
