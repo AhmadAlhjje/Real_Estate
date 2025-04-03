@@ -21,7 +21,7 @@ const PropertyMedia = ({ property }) => {
         {/* صندوق الفيديو */}
         <div
           className="video-box"
-          onClick={() => window.open(property.video, "_blank")}
+          onClick={() => window.open(`${BASE_URL}${property.video}`, "_blank")}
         >
           <img
             src={`${BASE_URL}${property.images[0]}`}
