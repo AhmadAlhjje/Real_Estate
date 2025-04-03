@@ -1,11 +1,10 @@
-import { BASE_URL} from './api'
-import {getUserIdFromToken} from './api'
+import { BASE_URL,getUserIdFromToken} from './api'
 
 
 // دالة لجلب طلبات المشاهدة الخاصة بالمستخدم
 export const fetchUserRequests = async () => {
     try {
-      const userId = getUserIdFromToken(); // استخراج معرّف المستخدم من التوكن
+      const userId = getUserIdFromToken();
       console.log(userId)
       if (!userId) {
         throw new Error("يجب تسجيل الدخول أولاً.");
