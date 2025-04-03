@@ -55,7 +55,7 @@ const AddProperty = () => {
 
   // دالة لتحديد الموقع الجغرافي للعقار
   const handleLocationSelect = (location) => {
-    setFormData({ ...formData, location }); // تحديث الموقع الجغرافي
+    setFormData({ ...formData, location }); 
   };
 
   // دالة لإرسال البيانات إلى الـ API
@@ -103,12 +103,12 @@ const AddProperty = () => {
 
     // إرسال الصور كحقل واحد (مصفوفة)
     formData.images.forEach((image) => {
-      formDataToSend.append("images", image); // إضافة كل صورة تحت اسم "images[]"
+      formDataToSend.append("images", image);
     });
 
     // إضافة الفيديو إذا كان موجودًا
     if (formData.video) {
-      formDataToSend.append("videos", formData.video); // إضافة الفيديو تحت اسم "videos"
+      formDataToSend.append("videos", formData.video);
     }
 
     // إضافة الوصف والموقع الجغرافي ومعرّف المالك
