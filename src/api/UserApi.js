@@ -63,9 +63,9 @@ export const registerAdmin = async (adminData) => {
       }
   
       const data = await response.json();
-      return data; // إرجاع التوكن
+      return data; 
     } catch (error) {
-      throw new Error(error.message); // إعادة الخطأ
+      throw new Error(error.message); 
     }
   };
 
@@ -85,9 +85,9 @@ export const loginAdmin = async (adminData) => {
     }
 
     const data = await response.json();
-    return data; // إرجاع التوكن
+    return data; 
   } catch (error) {
-    throw new Error(error.message); // إعادة الخطأ
+    throw new Error(error.message); 
   }
 };
 
