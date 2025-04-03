@@ -70,14 +70,17 @@ const EditPropertyForm = ({ editFormData, handleChange, handleSave, cancelEdit }
 
         {/* المدينة */}
         <label htmlFor="city">المدينة:</label>
-        <input
-          type="text"
+        <select
           id="city"
           name="city"
           value={editFormData.city || ""}
           onChange={handleChange}
-          placeholder="ادخل اسم المدينة"
-        />
+        >
+          <option value="حلب"> حلب </option>
+          <option value="دمشق">دمشق </option>
+          <option value="اللاذقية">اللاذقية</option>
+          <option value="حمص">حمص </option>
+        </select>
 
         {/* السعر */}
         <label htmlFor="price">السعر:</label>

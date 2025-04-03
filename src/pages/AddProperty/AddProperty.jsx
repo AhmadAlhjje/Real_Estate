@@ -224,7 +224,7 @@ const AddProperty = () => {
               >
                   <option value="حلب"> حلب </option>
                   <option value="دمشق">دمشق </option>
-                  <option value="اللاذقية">اللاذقية </option>
+                  <option value="اللاذقية">اللاذقية</option>
                   <option value="حمص">حمص </option>
               </Form.Select>
             </Form.Group>
