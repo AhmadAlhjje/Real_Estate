@@ -1,32 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropertyCard from "../../components/PropertyCard/PropertyCard";
-import { fetchProperties } from "../../api/RealeStateApi"; 
+import { fetchFavorites } from "../../api/FavoritesApi";
 
 const Favorites = () => {
   const [filteredProperties, setFilteredProperties] = useState([]);
 
   useEffect(() => {
-    const getProperties = async () => {
-      const data = await fetchProperties(); // استدعاء الـ API للحصول على العقارات
-      setFilteredProperties(data); // تعيين البيانات الأولية للفلترة
+    const getFavorites = async () => {
+      try {
+        const data = await fetchFavorites(); // استدعاء الـ API للحصول على العقارات المفضلة
+        const formattedProperties = data.map((favorite) => favorite.realEstateDetails); // استخراج تفاصيل العقار
+        setFilteredProperties(formattedProperties); // تعيين البيانات الأولية للفلترة
+      } catch (error) {
+        console.error("خطأ في جلب العقارات المفضلة:", error.message);
+        setFilteredProperties([]); // تعيين قائمة فارغة في حالة الخطأ
+      }
     };
 
-    getProperties();
+    getFavorites();
   }, []); 
-
- 
 
   return (
     <div className="container">
-      {/* عرض العقارات المصفاة أو رسالة عدم توفر عقارات */}
+      {/* عرض العقارات المفضلة أو رسالة عدم توفر عقارات */}
       <div className="row">
         {filteredProperties.length > 0 ? (
           // عرض العقارات باستخدام مكون PropertyCard
-          filteredProperties.map((prop) => <PropertyCard key={prop.id} property={prop} />)
+          filteredProperties.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))
         ) : (
           // عرض رسالة إذا لم يتم العثور على عقارات
-          <p className="text-center">لا توجد عقارات متاحة.</p>
+          <p className="text-center">لا توجد عقارات مفضلة.</p>
         )}
       </div>
     </div>

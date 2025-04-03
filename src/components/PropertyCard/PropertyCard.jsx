@@ -1,20 +1,44 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome, FaHeart } from "react-icons/fa";
-import { BASE_URL } from '../../api/api';
+import { BASE_URL, getUserIdFromToken } from '../../api/api';
+import { addFavorite } from '../../api/FavoritesApi';
 
 const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
   const [isFavorite, setIsFavorite] = useState(false);
-
+  console.log(property)
   // تحليل الصور من JSON إلى مصفوفة
   const images = Array.isArray(property.images)
     ? property.images
     : JSON.parse(property.images || '[]');
 
   // تابع للتبديل بين حالة الإعجاب (إضافة أو إزالة من المفضلة)
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  const toggleFavorite = async () => {
+    try {
+      // استخراج معرف المستخدم من التوكن
+      const userId = getUserIdFromToken();
+
+      if (!userId) {
+        alert("حدث خطأ أثناء استخراج معرف المستخدم. يرجى تسجيل الدخول مرة أخرى.");
+        return;
+      }
+
+      // إعداد البيانات المرسلة
+      const requestData = {
+        user_id: userId,
+        property_id: property.id,
+      };
+
+      // إرسال الطلب إلى API
+      await addFavorite(requestData);
+
+      // تحديث حالة الإعجاب
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("حدث خطأ أثناء إضافة العقار إلى المفضلة:", error);
+      alert("حدث خطأ أثناء إضافة العقار إلى المفضلة. يرجى المحاولة لاحقًا.");
+    }
   };
 
   return (

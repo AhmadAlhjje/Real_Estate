@@ -46,7 +46,7 @@ const PropertyDetailsInfo = ({ property }) => {
           </li>
           <li>
             <strong>تاريخ الإضافة:</strong>{" "}
-            {new Date(property.addedDate).toLocaleDateString()}
+            {new Date(property.createdAt).toLocaleDateString()}
           </li>
           {/* إضافة رمز QR */}
           <li className="qr-item">
