@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate,Link } from "react-router-dom"; 
 import { FaUser, FaLock } from "react-icons/fa";
 import { loginUser, loginAdmin } from "../../api/UserApi"; 
 import "./Login.css";
@@ -117,6 +117,14 @@ const Login = () => {
           {/* زر تسجيل الدخول */}
           <button type="submit" className="btn btn-primary w-100 mt-3">تسجيل الدخول</button>
         </form>
+
+        {/* نص "إنشاء حساب جديد" مع رابط إلى صفحة التسجيل */}
+        <p className="text-center mt-3">
+          ليس لديك حساب؟{" "}
+          <Link to="/register" className="text-primary text-decoration-none">
+            إنشاء حساب جديد
+          </Link>
+        </p>
       </div>
     </div>
   );
