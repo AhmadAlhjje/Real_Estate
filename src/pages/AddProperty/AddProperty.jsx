@@ -1,27 +1,26 @@
-import React, { useState } from "react"; 
-import { Form, Button, Container, Row, Col } from "react-bootstrap"; 
+import React, { useState } from "react";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import MapComponent from "../../components/AddMap/AddMap";
-import "bootstrap/dist/css/bootstrap.rtl.min.css"; 
-import { addRealEstate } from "../../api/RealeStateApi"; 
+import "bootstrap/dist/css/bootstrap.rtl.min.css";
+import { addRealEstate } from "../../api/RealeStateApi";
 import { getUserIdFromToken } from "../../api/api";
 
 const AddProperty = () => {
-
   // حالة لتخزين بيانات النموذج الخاص بإضافة العقار
   const [formData, setFormData] = useState({
-    title: "", 
-    type: "بيع", 
-    category: "شقة", 
+    title: "",
+    type: "بيع",
+    category: "شقة",
     city: "",
-    area: "", 
-    price: "", 
-    rooms: "", 
-    bathrooms: "", 
-    rentType: "شهري", 
-    images: [], 
-    video: null, 
-    description: "", 
-    location: null, 
+    area: "",
+    price: "",
+    rooms: "",
+    bathrooms: "",
+    rentType: "شهري",
+    images: [],
+    video: null,
+    description: "",
+    location: null,
   });
 
   const [previewImages, setPreviewImages] = useState([]); // حالة لمعاينة الصور المرفوعة
@@ -29,13 +28,12 @@ const AddProperty = () => {
   // دالة لتحديث الحقول النصية في النموذج
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value }); 
+    setFormData({ ...formData, [name]: value });
   };
 
   // دالة لمعالجة رفع الملفات (صور وفيديو)
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-
     if (name === "images") {
       const imagesArray = Array.from(files); // تحويل الصور إلى مصفوفة
       setFormData({ ...formData, images: imagesArray }); // تحديث حالة الصور
@@ -62,7 +60,7 @@ const AddProperty = () => {
 
   // دالة لإرسال البيانات إلى الـ API
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // التحقق من صحة البيانات
     if (
@@ -77,7 +75,6 @@ const AddProperty = () => {
       alert("يرجى ملء جميع الحقول المطلوبة ورفع صورتين على الأقل.");
       return;
     }
-
     if (formData.type === "إيجار" && !formData.rentType) {
       alert("يرجى اختيار نوع الإيجار.");
       return;
@@ -100,25 +97,26 @@ const AddProperty = () => {
     formDataToSend.append("price", formData.price);
     formDataToSend.append("rooms", formData.rooms);
     formDataToSend.append("bathrooms", formData.bathrooms);
-
     if (formData.type === "إيجار") {
       formDataToSend.append("rent_type", formData.rentType);
     }
 
+    // إرسال الصور كحقل واحد (مصفوفة)
     formData.images.forEach((image) => {
-      formDataToSend.append("images", image); // إضافة كل صورة إلى البيانات
+      formDataToSend.append("images", image); // إضافة كل صورة تحت اسم "images[]"
     });
 
+    // إضافة الفيديو إذا كان موجودًا
     if (formData.video) {
-      formDataToSend.append("video", formData.video); // إضافة الفيديو إذا كان موجودًا
+      formDataToSend.append("videos", formData.video); // إضافة الفيديو تحت اسم "videos"
     }
 
+    // إضافة الوصف والموقع الجغرافي ومعرّف المالك
     formDataToSend.append("description", formData.description);
     if (formData.location) {
       formDataToSend.append("latitude", formData.location.lat); // إضافة خط العرض
       formDataToSend.append("longitude", formData.location.lng); // إضافة خط الطول
     }
-
     formDataToSend.append("owner_id", ownerId); // إضافة معرّف المالك
 
     try {
@@ -146,9 +144,9 @@ const AddProperty = () => {
   };
 
   return (
-    <Container dir="rtl" className="mb-4"> 
-      <h2 className="my-4 text-start">إضافة عقار</h2> 
-      <Form onSubmit={handleSubmit}> 
+    <Container dir="rtl" className="mb-4">
+      <h2 className="my-4 text-start">إضافة عقار</h2>
+      <Form onSubmit={handleSubmit}>
         {/* الحقول النصية */}
         <Row>
           <Col md={6}>
@@ -279,7 +277,6 @@ const AddProperty = () => {
             </Form.Group>
           </Col>
         </Row>
-
         {/* رفع الصور والفيديو */}
         <Form.Group className="mb-3 text-start">
           <Form.Label>إضافة صور</Form.Label>
@@ -337,7 +334,6 @@ const AddProperty = () => {
             </div>
           )}
         </Form.Group>
-
         {/* الوصف والموقع */}
         <Form.Group className="mb-3 text-start">
           <Form.Label>وصف العقار</Form.Label>
@@ -353,9 +349,10 @@ const AddProperty = () => {
           <Form.Label>تحديد موقع العقار</Form.Label>
           <MapComponent onLocationSelect={handleLocationSelect} />
         </Form.Group>
-
         {/* زر الإرسال */}
-        <Button variant="primary" type="submit">إضافة العقار</Button>
+        <Button variant="primary" type="submit">
+          إضافة العقار
+        </Button>
       </Form>
     </Container>
   );

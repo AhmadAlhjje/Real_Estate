@@ -7,6 +7,11 @@ const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
   const [isFavorite, setIsFavorite] = useState(false);
 
+  // تحليل الصور من JSON إلى مصفوفة
+  const images = Array.isArray(property.images)
+    ? property.images
+    : JSON.parse(property.images || '[]');
+
   // تابع للتبديل بين حالة الإعجاب (إضافة أو إزالة من المفضلة)
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -18,7 +23,7 @@ const PropertyCard = ({ property }) => {
         <div className="position-relative">
           {/* صورة العقار */}
           <img 
-            src={`${BASE_URL}${property.images[0]}`} 
+            src={`${BASE_URL}${images[0]}`} // تأكد من وجود صورة واحدة على الأقل
             alt={property.title} 
             className="card-img-top"
             style={{ height: "200px", objectFit: "cover" }} 

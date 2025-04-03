@@ -6,9 +6,10 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import {BASE_URL} from '../../api/api'
 
 const PropertyMedia = ({ property }) => {
-
+  console.log(property)
 // هذه من اجل الصور ImageGallery
   const images = property.images.map((imagePath) => ({
+    
     original: `${BASE_URL}${imagePath}`,
     thumbnail: `${BASE_URL}${imagePath}`,
   }));
