@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome, FaHeart } from "react-icons/fa";
 import { BASE_URL, getUserIdFromToken } from '../../api/api';
@@ -6,17 +6,42 @@ import { addFavorite } from '../../api/FavoritesApi';
 
 const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
-  const [isFavorite, setIsFavorite] = useState(property.favoritesCount === 1);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // تحليل الصور من JSON إلى مصفوفة
   const images = Array.isArray(property.images)
     ? property.images
     : JSON.parse(property.images || '[]');
 
-  // تابع للتبديل بين حالة الإعجاب (إضافة أو إزالة من المفضلة)
+  // دالة لجلب حالة الإعجاب (المفضلة) من الـ API
+  const fetchFavorites = async () => {
+    try {
+      const userId = getUserIdFromToken();
+      if (!userId) {
+        console.error("حدث خطأ أثناء استخراج معرف المستخدم.");
+        return;
+      }
+
+      // جلب حالة الإعجاب من الـ API
+      const response = await fetch(`${BASE_URL}/favorites/${userId}`);
+      if (!response.ok) {
+        console.error("خطأ في جلب حالة الإعجاب:", response.statusText);
+        return;
+      }
+
+      const favorites = await response.json();
+      const favorite = favorites.find((fav) => fav.property_id === property.id);
+
+      // تحديث حالة الإعجاب بناءً على قيمة favoritesCount
+      setIsFavorite(favorite ? favorite.favoritesCount === 1 : false);
+    } catch (error) {
+      console.error("حدث خطأ أثناء جلب حالة الإعجاب:", error);
+    }
+  };
+
+  // دالة لتبديل حالة الإعجاب (إضافة أو إزالة من المفضلة)
   const toggleFavorite = async () => {
     try {
-      // استخراج معرف المستخدم من التوكن
       const userId = getUserIdFromToken();
 
       if (!userId) {
@@ -31,15 +56,24 @@ const PropertyCard = ({ property }) => {
       };
 
       // إرسال الطلب إلى API
-      await addFavorite(requestData);
+      const response = await addFavorite(requestData);
 
-      // تحديث حالة الإعجاب
-      setIsFavorite(!isFavorite);
+      // تحديث حالة الإعجاب بناءً على استجابة الـ API
+      if (response.message === 'تم إضافة العقار إلى المفضلة') {
+        setIsFavorite(true); // تم الإضافة إلى المفضلة
+      } else if (response.message === 'تم إزالة العقار من الم_favoriteưa') {
+        setIsFavorite(false); // تم الإزالة من المفضلة
+      }
     } catch (error) {
       console.error("حدث خطأ أثناء إضافة العقار إلى المفضلة:", error);
       alert("حدث خطأ أثناء إضافة العقار إلى المفضلة. يرجى المحاولة لاحقًا.");
     }
   };
+
+  // جلب حالة الإعجاب عند تحميل المكون
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
 
   return (
     <div className="col-md-4" style={{ margin: "20px 0px" }}>
