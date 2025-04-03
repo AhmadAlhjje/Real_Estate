@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaRulerCombined, FaBed, FaBath, FaHome, FaHeart } from "react-icons/fa";
-import { BASE_URL, getUserIdFromToken } from '../../api/api';
-import { addFavorite } from '../../api/FavoritesApi';
+import { BASE_URL } from '../../api/api';
+import { addFavorite, fetchFavorites } from '../../api/FavoritesApi'; 
+import { increaseViews } from '../../api/RealeStateApi';
+import { getUserIdFromToken } from '../../api/api';
 
 const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
@@ -13,23 +15,10 @@ const PropertyCard = ({ property }) => {
     ? property.images
     : JSON.parse(property.images || '[]');
 
-  // دالة لجلب حالة الإعجاب (المفضلة) من الـ API
-  const fetchFavorites = async () => {
+  // دالة لجلب حالة الإعجاب (المفضلة) من الـ API باستخدام الدالة الجاهزة
+  const fetchPropertyFavorites = async () => {
     try {
-      const userId = getUserIdFromToken();
-      if (!userId) {
-        console.error("حدث خطأ أثناء استخراج معرف المستخدم.");
-        return;
-      }
-
-      // جلب حالة الإعجاب من الـ API
-      const response = await fetch(`${BASE_URL}/favorites/${userId}`);
-      if (!response.ok) {
-        console.error("خطأ في جلب حالة الإعجاب:", response.statusText);
-        return;
-      }
-
-      const favorites = await response.json();
+      const favorites = await fetchFavorites(); // استخدام الدالة الجاهزة
       const favorite = favorites.find((fav) => fav.property_id === property.id);
 
       // تحديث حالة الإعجاب بناءً على قيمة favoritesCount
@@ -72,8 +61,18 @@ const PropertyCard = ({ property }) => {
 
   // جلب حالة الإعجاب عند تحميل المكون
   useEffect(() => {
-    fetchFavorites();
+    fetchPropertyFavorites();
   }, []);
+
+  // دالة عند النقر على زر "عرض التفاصيل"
+  const handleViewDetails = async () => {
+    try {
+      // زيادة عدد المشاهدات للعقار
+      await increaseViews(property.id);
+    } catch (error) {
+      console.error("حدث خطأ أثناء تحديث عدد المشاهدات:", error);
+    }
+  };
 
   return (
     <div className="col-md-4" style={{ margin: "20px 0px" }}>
@@ -124,6 +123,7 @@ const PropertyCard = ({ property }) => {
           <Link
             to={`/property/${property.id}`}
             className="btn btn-outline-primary w-100 mt-3 rounded-pill"
+            onClick={handleViewDetails} // زيادة عدد المشاهدات عند النقر
           >
             عرض التفاصيل
           </Link>

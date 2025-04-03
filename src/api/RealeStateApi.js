@@ -129,3 +129,26 @@
         throw error; // إعادة رمي الخطأ ليتم التعامل معه في المكون
       }
     };
+
+// دالة لزيادة عدد المشاهدات للعقار
+export const increaseViews = async (propertyId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/realStates/views/${propertyId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'حدث خطأ أثناء تحديث عدد المشاهدات');
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('حدث خطأ أثناء تحديث عدد المشاهدات:', error.message);
+    throw error;
+  }
+};
