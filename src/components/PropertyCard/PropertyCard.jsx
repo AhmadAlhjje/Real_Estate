@@ -10,15 +10,15 @@ const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // تحليل الصور من JSON إلى مصفوفة
+  // تحويل الصور من JSON إلى مصفوفة
   const images = Array.isArray(property.images)
     ? property.images
     : JSON.parse(property.images || '[]');
 
-  // دالة لجلب حالة الإعجاب (المفضلة) من الـ API باستخدام الدالة الجاهزة
+  // دالة لجلب حالة الإعجاب (المفضلة)  
   const fetchPropertyFavorites = async () => {
     try {
-      const favorites = await fetchFavorites(); // استخدام الدالة الجاهزة
+      const favorites = await fetchFavorites(); 
       const favorite = favorites.find((fav) => fav.property_id === property.id);
 
       // تحديث حالة الإعجاب بناءً على قيمة favoritesCount
@@ -49,9 +49,9 @@ const PropertyCard = ({ property }) => {
 
       // تحديث حالة الإعجاب بناءً على استجابة الـ API
       if (response.message === 'تم إضافة العقار إلى المفضلة') {
-        setIsFavorite(true); // تم الإضافة إلى المفضلة
+        setIsFavorite(true); 
       } else if (response.message === 'تم إزالة العقار من الم_favoriteưa') {
-        setIsFavorite(false); // تم الإزالة من المفضلة
+        setIsFavorite(false); 
       }
     } catch (error) {
       console.error("حدث خطأ أثناء إضافة العقار إلى المفضلة:", error);
@@ -59,7 +59,7 @@ const PropertyCard = ({ property }) => {
     }
   };
 
-  // جلب حالة الإعجاب عند تحميل المكون
+  // جلب حالة الإعجاب عند تحميل الصفحة
   useEffect(() => {
     fetchPropertyFavorites();
   }, []);
@@ -80,12 +80,12 @@ const PropertyCard = ({ property }) => {
         <div className="position-relative">
           {/* صورة العقار */}
           <img 
-            src={`${BASE_URL}${images[0]}`} // تأكد من وجود صورة واحدة على الأقل
+            src={`${BASE_URL}${images[0]}`}
             alt={property.title} 
             className="card-img-top"
             style={{ height: "200px", objectFit: "cover" }} 
           />
-          {/* شارة نوع العقار (بيع/إيجار) */}
+          {/* شارة نوع العقار (بيع/إيجار/مشاريع) */}
           <span 
             className="position-absolute top-0 start-0 m-2 badge bg-warning text-dark px-3 py-2 rounded-pill"
             style={{ width: "100px"}}
@@ -119,7 +119,7 @@ const PropertyCard = ({ property }) => {
             <span><FaBath /> {property.bathrooms}</span>
             <span><FaBed /> {property.rooms}</span>
           </div>
-          {/* زر عرض التفاصيل الذي يقود إلى صفحة العقار */}
+          {/* زر عرض التفاصيل الذي يؤدي إلى صفحة العقار */}
           <Link
             to={`/property/${property.id}`}
             className="btn btn-outline-primary w-100 mt-3 rounded-pill"
