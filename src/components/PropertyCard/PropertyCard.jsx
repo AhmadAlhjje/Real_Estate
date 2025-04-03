@@ -6,8 +6,8 @@ import { addFavorite } from '../../api/FavoritesApi';
 
 const PropertyCard = ({ property }) => {
   // حالة لإدارة حالة الإعجاب (المفضلة) للعقار
-  const [isFavorite, setIsFavorite] = useState(false);
-  console.log(property)
+  const [isFavorite, setIsFavorite] = useState(property.favoritesCount === 1);
+
   // تحليل الصور من JSON إلى مصفوفة
   const images = Array.isArray(property.images)
     ? property.images
