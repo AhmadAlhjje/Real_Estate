@@ -5,9 +5,6 @@ export const acceptPropertyOwner = async (id) => {
     try {
       const response = await fetch(`${BASE_URL}/admins/${id}`, {
         method: 'PATCH', 
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
         body: JSON.stringify({ isApproved: true }), 
       });
   
