@@ -41,6 +41,7 @@ export const fetchFavorites = async () => {
       const data = await response.json();
       return data;
     } catch (error) {
+      console.log(error)
       console.error("خطأ في جلب العقارات المفضلة:", error.message);
       return [];
     }

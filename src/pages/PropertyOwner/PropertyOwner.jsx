@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { fetchPropertyOwners, deletePropertyOwner } from "../../api/PropertyOwnerApi";
+import { fetchPropertyOwners, deletePropertyOwner } from "../../api/propertyOwners";
 import "./PropertyOwner.css";
 
 function PropertyOwner() {

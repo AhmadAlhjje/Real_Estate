@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchPropertyOwners, deletePropertyOwner } from "../../api/PropertyOwnerApi";
+import { fetchPropertyOwners, deletePropertyOwner } from "../../api/propertyOwners";
+import { acceptPropertyOwner } from "../../api/AdminApi"; // استيراد دالة القبول
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./PropertyOwnerRequests.css";
 
@@ -42,13 +43,21 @@ function PropertyOwnerRequests() {
     }
   };
 
-  // دالة لقبول صاحب عقار (اختياري)
+  // دالة لقبول صاحب عقار
   const handleAcceptOwner = async (id) => {
-    // يمكنك إضافة منطق لتحديث حالة isApproved إلى true في الـ API
-    alert(`تم قبول صاحب العقار برقم ID: ${id}`);
-    // تحديث القائمة بعد القبول
-    const updatedOwners = propertyOwners.filter((owner) => owner.id !== id);
-    setPropertyOwners(updatedOwners);
+    try {
+      // إرسال طلب القبول إلى الـ API
+      await acceptPropertyOwner(id);
+
+      // تحديث القائمة بعد القبول
+      const updatedOwners = propertyOwners.filter((owner) => owner.id !== id);
+      setPropertyOwners(updatedOwners);
+
+      alert("تم قبول صاحب العقار بنجاح.");
+    } catch (error) {
+      console.error("حدث خطأ أثناء قبول صاحب العقار.", error);
+      alert("حدث خطأ أثناء قبول صاحب العقار. يرجى المحاولة لاحقًا.");
+    }
   };
 
   return (
