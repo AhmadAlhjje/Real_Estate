@@ -1,11 +1,22 @@
-import { BASE_URL} from './api'
+import { BASE_URL,getToken} from './api'
 
 // دالة لجلب جميع أصحاب العقارات
 export const fetchPropertyOwners = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/propertyOwners`);
+    const token = getToken();
+    if (!token) {
+      throw new Error("لم يتم العثور على التوكن.");
+    }
+    const response = await fetch(`${BASE_URL}/propertyOwners`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      },
+    });
     if (!response.ok) {
-      throw new Error(`خطأ في جلب البيانات: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.error || `خطأ في جلب البيانات: ${response.statusText}`);
     }
     const data = await response.json();
     return data;
@@ -18,11 +29,20 @@ export const fetchPropertyOwners = async () => {
 // دالة لحذف صاحب عقار بناءً على الـ ID
 export const deletePropertyOwner = async (id) => {
   try {
+    const token = getToken();
+    if (!token) {
+      throw new Error("لم يتم العثور على التوكن.");
+    }
     const response = await fetch(`${BASE_URL}/propertyOwners/${id}`, {
       method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
-      throw new Error(`خطأ في حذف صاحب العقار: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.error || `خطأ في حذف صاحب العقار: ${response.statusText}`);
     }
     const data = await response.json();
     return data;

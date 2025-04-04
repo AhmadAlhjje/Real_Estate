@@ -14,3 +14,9 @@ export const getUserIdFromToken = () => {
         return null;
     }
 };
+
+
+export const getToken = () => {
+    const token = localStorage.getItem('token'); 
+    return token;
+  };
